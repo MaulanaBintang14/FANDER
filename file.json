@@ -67,8 +67,15 @@
       "imageUrl": "https://i.ebayimg.com/images/g/NtEAAOSwCyZftMXT/s-l1600.jpg",
       "description": "FANDER Leather Beret Hat menghadirkan nuansa klasik yang dipadukan dengan sentuhan modern.\nDibuat dari kulit asli pilihan, topi ini tidak hanya memberikan tampilan elegan, tetapi juga daya tahan tinggi dan kenyamanan maksimal saat digunakan.\nDesainnya cocok untuk pria maupun wanita yang ingin tampil unik, stylish, dan percaya diri — baik untuk aktivitas harian, touring, maupun acara semi-formal.",
       "id": "fcd23e4a-feb4-4183-8cb7-0b5e50c557e6"
+    },
+    {
+      "name": "Jaket oscare ",
+      "category": "Jaket",
+      "price": 350000,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBwxqFR7px4PvhfiZuqdwwDo3ecSHK2bIBTA&s",
+      "description": "Semi kulit kualitas pilihan",
+      "id": "780f9600-cd40-4962-bb7e-0a49de16f15c"
     }
-    
   ],
   "orders": [
     {
@@ -79,9 +86,21 @@
       "buyerName": "Maulana Bintang",
       "buyerPhone": "081998305354",
       "buyerAddress": "q12swd, we, Banten, Kode Pos 1345",
-      "status": "Complete",
+      "status": "Processing",
       "createdAt": "2025-10-07T04:07:01.771Z",
       "userId": "Guest"
+    },
+    {
+      "id": "4a6ed66a-bf98-4781-8b04-674af7f1ab87",
+      "productId": "f2a247e6-eeb5-40dc-b060-7fbaba3afc6c",
+      "productName": "Tas Selempang Pria ",
+      "totalPrice": 550000,
+      "buyerName": "Abintang",
+      "buyerPhone": "34567890-",
+      "buyerAddress": "ndjdEHH, aafsvfd, Banten, Kode Pos 12345t",
+      "status": "Pending",
+      "createdAt": "2025-10-13T15:25:45.465Z",
+      "userId": "0b2a878a-9610-46ec-b71d-bb0e560694fa"
     }
   ]
 }
