@@ -1,741 +1,1289 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FANDER Leather Production</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FANDER Leather - Kerajinan Kulit Premium</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        /* Sembunyikan view secara default */
-        .view {
-            display: none;
+        /* =============================== */
+        /* ✅ Tema Jaket Kulit Modern Premium */
+        /* =============================== */
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #f4f4f5;
         }
-        .view.active {
-            display: block;
+
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        /* Custom styles untuk status pesanan */
-        .status-pending { background-color: #f59e0b; color: white; }
-        .status-processing { background-color: #3b82f6; color: white; }
-        .status-shipped { background-color: #10b981; color: white; }
-        .status-complete { background-color: #16a34a; color: white; }
-        .status-cancelled { background-color: #ef4444; color: white; }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c49b63;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a37744;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .product-card,
+        .admin-card {
+            transition: all 0.3s ease;
+            border-radius: 14px;
+            background: #1e1e1e;
+            border: 1px solid #3a3a3a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.65);
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            color: #c49b63;
+            letter-spacing: 0.12em;
+            text-shadow: 1px 1px 6px rgba(196, 155, 99, 0.3);
+        }
+
+        .status-pending {
+            background-color: #3a3a3a;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .status-processing {
+            background-color: #c49b63;
+            color: #121212;
+            font-weight: 600;
+        }
+
+        .status-shipped {
+            background-color: #4d7c0f;
+            color: #d9f99d;
+            font-weight: 600;
+        }
+
+        .status-complete {
+            background-color: #1e3a8a;
+            color: #c7d2fe;
+            font-weight: 600;
+        }
+
+        .status-cancelled {
+            background-color: #7f1d1d;
+            color: #fca5a5;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid #3a3a3a;
+            background: #181818;
+            color: #f4f4f5;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #c49b63;
+            box-shadow: 0 0 0 3px rgba(196, 155, 99, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c49b63, #a37744);
+            color: #1e1e1e;
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(196, 155, 99, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #a37744, #8c5f35);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(196, 155, 99, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #c49b63;
+            color: #c49b63;
+            padding: 0.7rem 1.75rem;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            font-weight: 500;
+        }
+
+        .btn-outline:hover {
+            background: #c49b63;
+            color: #121212;
+            border-color: #c49b63;
+            transform: translateY(-2px);
+        }
+
+        .section-box {
+            background: #1e1e1e;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid #3a3a3a;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #f5f5f5;
+        }
+
+        a {
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: #c49b63;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans">
 
-    <!-- Header / Navbar -->
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div class="text-2xl font-bold text-cyan-400 cursor-pointer" onclick="navigate('home')">FANDER</div>
-            <div class="flex items-center space-x-4">
-                 <div id="nav-links" class="flex items-center space-x-4">
-                    <button onclick="navigate('home')" class="text-gray-300 hover:text-cyan-400 transition">Produk</button>
-                    <!-- Tombol Dashboard Admin akan ditambahkan di sini oleh JavaScript -->
-                </div>
-                <div id="auth-buttons" class="flex items-center space-x-2">
-                    <!-- Tombol Login/Register/Profile akan di-render di sini -->
-                </div>
-            </div>
-        </nav>
+<body class="min-h-screen flex flex-col">
+    <header class="bg-[#1e293b] shadow-xl sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 id="logo" class="logo-text text-white cursor-pointer" onclick="navigate('home')">FANDER</h1>
+            <nav class="flex items-center space-x-4">
+                <button onclick="navigate('home')" class="text-gray-300 hover:text-cyan-400 transition duration-150 font-medium tracking-wide">Produk</button>
+                <button id="auth-button" onclick="handleAuthClick()" class="btn-primary text-sm shadow-lg">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    <span>Login</span>
+                </button>
+            </nav>
+        </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-6">
-        <!-- Home View (Product List) -->
-        <div id="home-view" class="view">
-            <h2 class="text-3xl font-bold text-cyan-400 mb-6">Produk Kami</h2>
-            <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Product cards will be loaded here -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
+        <div id="message-box" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-[100]">
+            <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-sm w-full transform transition-all scale-100">
+                <h3 id="message-title" class="text-2xl font-bold text-white mb-3 border-b pb-2">Pesan</h3>
+                <p id="message-body" class="text-gray-300 mb-6 leading-relaxed"></p>
+                <div class="flex justify-end space-x-3">
+                    <button id="message-cancel" class="px-5 py-2 btn-outline text-gray-400 hover:text-white hover:bg-gray-600 transition duration-150 hidden">Batal</button>
+                    <button id="message-confirm" class="btn-primary px-5 py-2">OK</button>
+                </div>
             </div>
         </div>
 
-        <!-- Admin View -->
-        <div id="admin-view" class="view">
-             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold text-cyan-400">Dashboard Admin</h2>
-                 <button onclick="showAdminProductForm()" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition"><i class="fas fa-plus-circle mr-2"></i>Tambah Produk</button>
+        <div id="order-detail-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-[100] p-4">
+            <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden transform transition-all">
+                <div class="p-6 border-b border-gray-700 flex justify-between items-center bg-gray-700">
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fas fa-receipt text-cyan-400"></i>
+                        Detail Pesanan
+                    </h3>
+                    <button onclick="document.getElementById('order-detail-modal').classList.add('hidden')" class="text-gray-400 hover:text-white transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="order-detail-content" class="p-6 max-h-[80vh] overflow-y-auto text-gray-200"></div>
+            </div>
+        </div>
+
+        <section id="home-view" class="active">
+            <div class="text-center mb-10 pt-4">
+                <h2 class="text-4xl font-bold text-white mb-3 tracking-tight">Koleksi Produk Kulit Premium</h2>
+                <p class="text-lg text-gray-400">Temukan kerajinan tangan terbaik dengan kualitas dan desain abadi.</p>
             </div>
 
-            <!-- Form Tambah/Edit Produk (Hidden by default) -->
-            <div id="admin-form-container" class="hidden bg-gray-800 p-6 rounded-lg mb-8">
-                 <h3 id="form-title" class="text-2xl font-bold text-cyan-400 mb-4">Tambah Produk Baru</h3>
-                 <form id="admin-product-form" onsubmit="event.preventDefault(); handleAdminProductSubmit(this.elements);" class="space-y-4">
-                     <input type="hidden" name="id">
-                     <div><label class="block mb-1 text-sm font-medium">Nama Produk</label><input name="name" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white" required></div>
-                     <div><label class="block mb-1 text-sm font-medium">Kategori</label><input name="category" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"></div>
-                     <div><label class="block mb-1 text-sm font-medium">Harga</label><input name="price" type="number" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white" required></div>
-                     <div><label class="block mb-1 text-sm font-medium">URL Gambar</label><input name="imageUrl" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"></div>
-                     <div><label class="block mb-1 text-sm font-medium">Deskripsi</label><textarea name="description" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"></textarea></div>
-                     <div class="flex justify-end space-x-3">
-                         <button type="button" onclick="document.getElementById('admin-form-container').classList.add('hidden')" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg">Batal</button>
-                         <button id="admin-form-submit-btn" type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-4 rounded-lg"><i class="fas fa-plus-circle mr-2"></i>Tambah Produk</button>
-                     </div>
-                 </form>
+            <!-- product-list will be filled by JS grouped by category -->
+            <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+        </section>
+
+        <section id="detail-view" class="hidden">
+            <button onclick="navigate('home')" class="text-gray-400 hover:text-cyan-400 mb-8 flex items-center gap-2 font-medium transition">
+                <i class="fas fa-chevron-left"></i>
+                <span>Kembali ke Produk</span>
+            </button>
+
+            <div id="product-detail-content" class="section-box p-6 lg:p-10 flex flex-col lg:flex-row gap-8 shadow-xl"></div>
+
+            <div id="order-form-container" class="hidden mt-10 section-box border-cyan-500 shadow-xl">
+                <h3 class="text-3xl font-bold text-white mb-8 pb-3 border-b-2 border-cyan-500/50 flex items-center gap-3">
+                    <i class="fas fa-cash-register text-cyan-400 text-2xl"></i>
+                    Konfirmasi Pesanan COD
+                </h3>
+
+                <form id="cod-order-form" onsubmit="event.preventDefault(); submitOrder(this.elements)">
+                    <input type="hidden" id="order-product-id" name="productId">
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="p-6 rounded-xl border border-gray-700 bg-gray-700/50 text-gray-200">
+                            <h4 class="text-xl font-semibold text-white mb-5 border-b border-gray-600 pb-2">1. Kontak Penerima</h4>
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Nama Lengkap</label>
+                                    <input type="text" id="buyer-name" name="buyerName" required class="form-input" placeholder="Contoh: Budi Santoso">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Nomor HP (WA Aktif)</label>
+                                    <input type="tel" id="buyer-phone" name="buyerPhone" required class="form-input" placeholder="Contoh: 081234567890">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Email (Opsional)</label>
+                                    <input type="email" id="buyer-email" name="buyerEmail" class="form-input" placeholder="Contoh: budi@mail.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-xl border border-gray-700 bg-gray-700/50 text-gray-200">
+                            <h4 class="text-xl font-semibold text-white mb-5 border-b border-gray-600 pb-2">2. Alamat Pengiriman</h4>
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Provinsi</label>
+                                    <select id="buyer-province" name="buyerProvince" required class="form-select"></select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Kota/Kabupaten</label>
+                                    <input type="text" id="buyer-city" name="buyerCity" required class="form-input" placeholder="Contoh: Jakarta Pusat">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Kode Pos</label>
+                                    <input type="text" id="buyer-zipcode" name="buyerZipcode" required class="form-input" placeholder="Contoh: 10110">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Detail Alamat</label>
+                                    <textarea id="buyer-address-detail" name="buyerAddressDetail" rows="3" required class="form-textarea" placeholder="Jl. Sudirman No. 12, Samping Indomaret"></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" id="buyer-full-address" name="buyerAddress">
+                        </div>
+
+                        <div class="p-6 rounded-xl border-4 border-cyan-500/50 bg-cyan-900/20 shadow-md flex flex-col justify-between text-gray-200">
+                            <div>
+                                <h4 class="text-xl font-semibold text-white mb-5">3. Rincian Pembayaran</h4>
+                                <div class="space-y-4 text-base">
+                                    <div class="flex justify-between text-gray-300">
+                                        <span class="font-medium">Produk (<span id="summary-product-name" class="font-semibold"></span>)</span>
+                                        <span id="summary-product-price-val" class="font-semibold text-white"></span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-300">
+                                        <span class="font-medium">Ongkos Kirim (Estimasi)</span>
+                                        <span class="font-semibold text-white">IDR 0</span>
+                                    </div>
+
+                                    <div class="flex justify-between text-2xl font-extrabold text-cyan-400 pt-4 border-t-2 border-cyan-700/30">
+                                        <span>Total Bayar</span>
+                                        <span id="summary-total-price"></span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-red-400 italic mt-4">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    Bayar tunai kepada kurir saat barang diterima (COD).
+                                </p>
+                            </div>
+
+                            <button type="submit" class="w-full mt-8 bg-green-600 text-white font-bold py-3 rounded-xl hover:bg-green-700 transition shadow-lg flex items-center justify-center gap-2">
+                                <i class="fas fa-shopping-bag text-lg"></i>
+                                <span>Proses Konfirmasi Pesanan</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center mt-8">
+                        <button type="button" onclick="hideOrderForm()" class="px-8 py-3 bg-gray-600 text-gray-200 rounded-xl hover:bg-gray-700 transition font-medium">Batal Pemesanan</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="profile-view" class="hidden">
+            <h2 class="text-4xl font-bold text-white mb-8 pb-3 border-b-2 border-cyan-500/50 flex items-center">
+                <i class="fas fa-user-circle mr-3 text-cyan-400"></i>
+                Profil Pengguna
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="section-box lg:col-span-1 border border-gray-700">
+                    <h3 class="text-xl font-semibold text-white mb-4 pb-2 border-b border-gray-600">Informasi Akun</h3>
+                    <div class="space-y-3">
+                        <p class="text-gray-300"><span class="font-medium text-gray-400">Username:</span> <span id="profile-username" class="font-bold text-cyan-400 block text-lg"></span></p>
+                        <p class="text-gray-300"><span class="font-medium text-gray-400">Tipe Akun:</span> <span id="profile-type" class="font-semibold text-green-400 block"></span></p>
+
+                        <!-- Edit Profil Button -->
+                        <div class="flex space-x-2 mt-4">
+                            <button onclick="showEditProfileForm()" class="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-150 shadow-md">
+                                <i class="fas fa-edit mr-2"></i> Edit Profil
+                            </button>
+
+                            <button onclick="handleAuthClick()" class="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-box lg:col-span-2">
+                    <h3 class="text-xl font-semibold text-white mb-5 pb-2 border-b border-gray-600">Riwayat Pesanan Anda</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-700">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider rounded-tl-xl">ID</th>
+                                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Tanggal</th>
+                                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Total</th>
+                                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
+                                    <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider rounded-tr-xl">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-order-table-body" class="bg-gray-800 divide-y divide-gray-700">
+                                <tr>
+                                    <td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Silakan login untuk melihat riwayat pesanan.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="auth-view" class="hidden flex justify-center py-10">
+            <div class="section-box w-full max-w-md border-t-4 border-cyan-600">
+                <h2 id="auth-title" class="text-3xl font-bold text-white mb-8 text-center">Login Akun</h2>
+                <form id="auth-form" onsubmit="event.preventDefault(); handleAuthSubmit(this.elements)">
+                    <div class="mb-5">
+                        <label for="username" class="block text-sm font-medium text-gray-300 mb-1">Username</label>
+                        <input type="text" id="username" name="username" required class="form-input" />
+                    </div>
+                    <div class="mb-8">
+                        <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                        <input type="password" id="password" name="password" required class="form-input" />
+                    </div>
+
+                    <button type="submit" id="auth-submit-btn" class="btn-primary w-full text-lg shadow-lg">Login</button>
+                </form>
+                <p id="auth-toggle" class="mt-6 text-center text-sm text-gray-400">Belum punya akun? <button onclick="toggleAuthMode()" class="text-cyan-400 hover:text-cyan-500 font-bold transition">Daftar di sini</button></p>
+            </div>
+        </section>
+
+        <section id="admin-view" class="hidden">
+            <h2 class="text-4xl font-bold text-white mb-8 pb-3 border-b-2 border-cyan-500/50 flex justify-between items-center">
+                Admin Dashboard
+                <button onclick="navigate('admin-add')" class="btn-primary text-sm shadow-md">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    Tambah Produk Baru
+                </button>
+            </h2>
+
+            <div id="admin-form-container" class="section-box mb-10 hidden border-t-4 border-blue-500/50">
+                <h3 id="form-title" class="text-2xl font-semibold text-white mb-5 border-b border-gray-600 pb-2">Tambah Produk</h3>
+                <form id="admin-product-form" onsubmit="event.preventDefault(); handleAdminProductSubmit(this.elements)">
+                    <input type="hidden" id="product-id" name="id" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-1">
+                            <label for="product-name" class="block text-sm font-medium text-gray-300 mb-1">Nama Produk</label>
+                            <input type="text" id="product-name" name="name" required class="form-input" />
+                        </div>
+                        <div class="col-span-1">
+                            <label for="product-category" class="block text-sm font-medium text-gray-300 mb-1">Kategori</label>
+                            <select id="product-category" name="category" required class="form-select">
+                                <option value="Jaket">Jaket</option>
+                                <option value="Tas">Tas</option>
+                                <option value="Dompet">Dompet</option>
+                                <option value="Sepatu">Sepatu</option>
+                                <option value="Ikat Pinggang">Ikat Pinggang</option>
+                                <option value="Topi">Topi</option>
+                                <option value="Aksesoris">Aksesoris</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="product-price" class="block text-sm font-medium text-gray-300 mb-1">Harga (IDR)</label>
+                            <input type="number" id="product-price" name="price" required class="form-input" />
+                        </div>
+                        <div class="col-span-1">
+                            <label for="product-imageurl" class="block text-sm font-medium text-gray-300 mb-1">URL Gambar</label>
+                            <input type="url" id="product-imageurl" name="imageUrl" required class="form-input" />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="product-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi</label>
+                            <textarea id="product-description" name="description" rows="4" required class="form-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-4 mt-6">
+                        <button type="button" onclick="navigate('admin')" class="px-6 py-2 btn-outline hover:text-white hover:bg-gray-600">Batal</button>
+                        <button type="submit" id="admin-form-submit-btn" class="btn-primary px-6 py-2">
+                            <i class="fas fa-save mr-2"></i>
+                            <span>Simpan Produk</span>
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            <!-- Tabel Produk Admin -->
-            <div class="bg-gray-800 p-6 rounded-lg mb-8">
-                 <h3 class="text-2xl font-bold text-cyan-400 mb-4">Manajemen Produk</h3>
-                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="border-b border-gray-700">
-                                <th class="p-4">Nama</th><th class="p-4">Harga</th><th class="p-4">Kategori</th><th class="p-4 text-right">Aksi</th>
+            <div class="section-box mb-10">
+                <h3 class="text-2xl font-bold text-white mb-5 border-b border-gray-600 pb-2 flex items-center gap-2">
+                    <i class="fas fa-shipping-fast text-cyan-400"></i>
+                    Manajemen Pesanan (COD)
+                </h3>
+                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-inner">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="bg-gray-700">
+                            <tr>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">ID Pesanan</th>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Produk / Harga</th>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Pembeli / HP</th>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
+                                <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="admin-product-table-body"></tbody>
+                        <tbody id="admin-order-table-body" class="bg-gray-800 divide-y divide-gray-700">
+                            <tr>
+                                <td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Memuat pesanan...</td>
+                            </tr>
+                        </tbody>
                     </table>
-                 </div>
+                </div>
             </div>
 
-            <!-- Tabel Pesanan Admin -->
-            <div class="bg-gray-800 p-6 rounded-lg">
-                <h3 class="text-2xl font-bold text-cyan-400 mb-4">Manajemen Pesanan</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="border-b border-gray-700"><th class="p-4">ID</th><th class="p-4">Produk</th><th class="p-4">Pembeli</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+            <div class="section-box">
+                <h3 class="text-2xl font-bold text-white mb-5 border-b border-gray-600 pb-2 flex items-center gap-2">
+                    <i class="fas fa-boxes text-cyan-400"></i>
+                    Manajemen Produk
+                </h3>
+                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-inner">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="bg-gray-700">
+                            <tr>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Nama</th>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Harga</th>
+                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Kategori</th>
+                                <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Aksi</th>
+                            </tr>
                         </thead>
-                        <tbody id="admin-order-table-body"></tbody>
+                        <tbody id="admin-product-table-body" class="bg-gray-800 divide-y divide-gray-700"></tbody>
                     </table>
                 </div>
             </div>
-        </div>
-
-        <!-- Profile View -->
-        <div id="profile-view" class="view">
-            <h2 class="text-3xl font-bold text-cyan-400 mb-6">Profil Saya</h2>
-            <div class="bg-gray-800 p-6 rounded-lg mb-6 flex justify-between items-center">
-                <div>
-                    <p class="text-xl">Username: <span id="profile-username" class="font-bold text-cyan-300"></span></p>
-                    <p class="text-sm text-gray-400">Tipe Akun: <span id="profile-type"></span></p>
-                </div>
-                <button onclick="showEditProfileForm()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-user-edit mr-2"></i>Edit Profil</button>
-            </div>
-             <div class="bg-gray-800 p-6 rounded-lg">
-                 <h3 class="text-2xl font-bold text-cyan-400 mb-4">Riwayat Pesanan</h3>
-                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead><tr class="border-b border-gray-700"><th class="p-4">ID Pesanan</th><th class="p-4">Tanggal</th><th class="p-4">Total</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr></thead>
-                        <tbody id="user-order-table-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Order Form (hidden by default) -->
-        <div id="order-form-container" class="hidden mt-8">
-            <!-- Akan diisi oleh JS -->
-        </div>
+        </section>
     </main>
 
-    <!-- Generic Modal for Messages, Auth Forms, etc. -->
-    <div id="message-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 items-center justify-center p-4">
-        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 border border-gray-700">
-            <h3 id="modal-title" class="text-2xl font-bold text-cyan-400 mb-4"></h3>
-            <div id="modal-content" class="text-gray-300 mb-6"></div>
-            <div id="modal-actions" class="flex justify-end space-x-3"></div>
+    <footer class="bg-[#1e293b] text-gray-300 mt-20 border-t border-cyan-600/30">
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="md:col-span-1">
+                <h2 class="logo-text text-white tracking-widest text-2xl mb-4">FANDER</h2>
+                <p class="mt-3 text-sm leading-relaxed text-gray-400">Kualitas premium, desain elegan, dan kenyamanan maksimal. Dibuat untuk gaya hidup abadi.</p>
+            </div>
+
+            <div class="flex flex-col space-y-3">
+                <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-2 border-b border-gray-700 pb-1">Navigasi Cepat</h3>
+                <a href="#" onclick="navigate('home')" class="hover:text-cyan-400 text-sm transition">Beranda</a>
+                <a href="#" onclick="navigate('home')" class="hover:text-cyan-400 text-sm transition">Koleksi Terbaru</a>
+                <a href="#" class="hover:text-cyan-400 text-sm transition">Tentang Kami</a>
+                <a href="#" class="hover:text-cyan-400 text-sm transition">Kebijakan</a>
+            </div>
+
+            <div class="flex flex-col space-y-3">
+                <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-2 border-b border-gray-700 pb-1">Dukungan</h3>
+                <p class="text-sm text-gray-400">Pusat Bantuan</p>
+                <p class="text-sm text-gray-400">Lacak Pesanan</p>
+                <p class="text-sm text-gray-400">Garansi Produk</p>
+                <p class="text-sm text-gray-400">Pengembalian</p>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 border-b border-gray-700 pb-1">Hubungi Kami</h3>
+                <p class="text-sm text-gray-400 mb-2">
+                    <i class="fab fa-whatsapp text-green-400 mr-2"></i>
+                    WhatsApp: <span class="text-white font-medium">0812-3456-7890</span>
+                </p>
+                <p class="text-sm text-gray-400">
+                    <i class="fas fa-envelope text-red-400 mr-2"></i>
+                    Email: <span class="text-white font-medium">cs@fanderleather.com</span>
+                </p>
+                <div class="flex space-x-5 mt-6">
+                    <a href="#" class="hover:text-cyan-400 transition text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-cyan-400 transition text-2xl"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-cyan-400 transition text-2xl"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Order Detail Modal -->
-    <div id="order-detail-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 items-center justify-center p-4">
-         <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-lg p-6 border border-gray-700 relative">
-            <button onclick="document.getElementById('order-detail-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <h3 class="text-2xl font-bold text-cyan-400 mb-6">Detail Pesanan</h3>
-            <div id="order-detail-content"></div>
+        <div class="border-t border-gray-700">
+            <div class="max-w-7xl mx-auto px-6 py-4 text-center text-sm text-gray-500">
+                &copy; 2024 FANDER Leather. Hak Cipta Dilindungi.
+            </div>
         </div>
-    </div>
+    </footer>
 
+    <script>
+        // --- DATA PROVINSI INDONESIA ---
+        const INDONESIAN_PROVINCES = [
+            "Aceh", "Bali", "Banten", "Bengkulu", "Daerah Istimewa Yogyakarta", "DKI Jakarta",
+            "Gorontalo", "Jambi", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Kalimantan Barat",
+            "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Timur", "Kalimantan Utara",
+            "Kepulauan Bangka Belitung", "Kepulauan Riau", "Lampung", "Maluku", "Maluku Utara",
+            "Nusa Tenggara Barat", "Nusa Tenggara Timur", "Papua", "Papua Barat", "Papua Pegunungan",
+            "Papua Selatan", "Papua Tengah", "Riau", "Sulawesi Barat", "Sulawesi Selatan",
+            "Sulawesi Tengah", "Sulawesi Tenggara", "Sulawesi Utara", "Sumatera Barat",
+            "Sumatera Selatan", "Sumatera Utara"
+        ];
 
-<script>
-    // --- KONFIGURASI DAN STATE APLIKASI ---
-    const API_BASE = 'http://localhost:3000/api';
-    const auth = {
-        token: localStorage.getItem('fanderToken'),
-        username: localStorage.getItem('fanderUsername'),
-        isAdmin: localStorage.getItem('fanderIsAdmin') === 'true',
-    };
-    let products = [];
-    let orders = [];
-    let userOrders = [];
-    let currentProduct = null;
-    const INDONESIAN_PROVINCES = ["Aceh", "Bali", "Banten", "Bengkulu", "Gorontalo", "Jakarta", "Jambi", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Kalimantan Barat", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Timur", "Kalimantan Utara", "Kepulauan Bangka Belitung", "Kepulauan Riau", "Lampung", "Maluku", "Maluku Utara", "Nusa Tenggara Barat", "Nusa Tenggara Timur", "Papua", "Papua Barat", "Riau", "Sulawesi Barat", "Sulawesi Selatan", "Sulawesi Tengah", "Sulawesi Tenggara", "Sulawesi Utara", "Sumatera Barat", "Sumatera Selatan", "Sumatera Utara", "Yogyakarta"];
+        // --- GLOBAL STATE ---
+        let currentView = 'home';
+        let products = [];
+        let orders = [];
+        let userOrders = [];
+        let currentProduct = null;
+        let auth = {
+            token: localStorage.getItem('fanderToken') || null,
+            isAdmin: localStorage.getItem('fanderIsAdmin') === 'true',
+            username: localStorage.getItem('fanderUsername') || null,
+            isRegisterMode: false
+        };
 
-    // --- FUNGSI UTAMA NAVIGASI & UI ---
-    
-    /**
-     * Mengelola perpindahan antar "halaman" atau "view" dalam aplikasi.
-     * @param {string} viewName - Nama view yang akan ditampilkan (cth: 'home', 'admin').
-     * @param {string} [param] - Parameter tambahan, biasanya ID untuk view detail.
-     */
-    async function navigate(viewName, param) {
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        const targetView = document.getElementById(`${viewName}-view`);
+        const API_BASE = 'http://localhost:3000/api';
+        const VIEWS = ['home-view', 'detail-view', 'auth-view', 'profile-view', 'admin-view'];
 
-        if (targetView) {
-            targetView.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            switch (viewName) {
-                case 'home':
-                    await loadProducts();
-                    renderProductList(products);
-                    break;
-                case 'admin':
-                    if (!auth.isAdmin) {
-                        showMessage("Akses Ditolak", "Hanya admin yang dapat membuka dashboard ini.");
-                        navigate('home'); // Redirect ke home jika bukan admin
-                        return;
-                    }
-                    await renderAdminDashboard();
-                    break;
-                case 'profile':
-                     if (!auth.token) {
-                        showMessage("Login Diperlukan", "Anda harus login untuk melihat profil.");
-                        navigate('home');
-                        return;
-                    }
-                    await renderProfileView();
-                    break;
-                 case 'admin-edit': // view khusus untuk form edit
-                    if (!auth.isAdmin) return;
-                    // Tampilkan admin view, lalu scroll ke form dan isi data
-                    document.getElementById('admin-view').classList.add('active');
-                    showAdminProductForm(param);
-                    document.getElementById('admin-form-container').scrollIntoView({ behavior: 'smooth' });
-                    break;
-            }
-        } else {
-            console.error(`View "${viewName}-view" tidak ditemukan.`);
-            document.getElementById('home-view').classList.add('active'); // Fallback ke home
-        }
-    }
-
-    /**
-     * Memperbarui UI (tombol navigasi) berdasarkan status login dan role pengguna.
-     * Ini adalah fungsi yang diperbaiki untuk menambahkan tombol Dashboard Admin secara persisten.
-     */
-    function updateAuthUI() {
-        const authButtonsContainer = document.getElementById('auth-buttons');
-        const navLinksContainer = document.getElementById('nav-links');
-        
-        // Hapus tombol dashboard admin yang mungkin ada sebelumnya untuk menghindari duplikasi
-        const existingAdminBtn = navLinksContainer.querySelector('#admin-dashboard-btn');
-        if (existingAdminBtn) {
-            existingAdminBtn.remove();
+        // Helper format rupiah
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
         }
 
-        if (auth.token) {
-            // Pengguna sudah login
-            authButtonsContainer.innerHTML = `
-                <button onclick="navigate('profile')" class="px-4 py-2 text-gray-300 hover:text-cyan-400 transition">${auth.username}</button>
-                <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-lg transition">Logout</button>
-            `;
-            if (auth.isAdmin) {
-                // Jika admin, tambahkan tombol Dashboard ke navigasi utama
-                const adminDashboardBtn = document.createElement('button');
-                adminDashboardBtn.id = 'admin-dashboard-btn';
-                adminDashboardBtn.textContent = 'Dashboard Admin';
-                adminDashboardBtn.className = 'bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-3 rounded-lg transition';
-                adminDashboardBtn.onclick = () => navigate('admin');
-                navLinksContainer.appendChild(adminDashboardBtn);
-            }
-        } else {
-            // Pengguna belum login
-            authButtonsContainer.innerHTML = `
-                <button onclick="showAuthForm('login')" class="px-4 py-2 text-gray-300 hover:text-cyan-400 transition">Login</button>
-                <button onclick="showAuthForm('register')" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-3 rounded-lg transition">Register</button>
-            `;
-        }
-    }
+        // Custom message modal
+        function showMessage(title, body, onConfirm, onCancel) {
+            document.getElementById('message-title').textContent = title;
+            // allow passing HTML string
+            document.getElementById('message-body').innerHTML = body;
+            const box = document.getElementById('message-box');
+            const confirmBtn = document.getElementById('message-confirm');
+            const cancelBtn = document.getElementById('message-cancel');
 
-    function logout() {
-        auth.token = null;
-        auth.username = null;
-        auth.isAdmin = false;
-        localStorage.removeItem('fanderToken');
-        localStorage.removeItem('fanderUsername');
-        localStorage.removeItem('fanderIsAdmin');
-        updateAuthUI();
-        navigate('home');
-    }
+            confirmBtn.onclick = null;
+            cancelBtn.onclick = null;
 
-    /**
-     * Menampilkan modal (popup) untuk pesan, konfirmasi, atau form.
-     * @param {string} title - Judul modal.
-     * @param {string} content - Isi konten modal (bisa berupa HTML).
-     * @param {Function} [onConfirm] - Callback jika tombol konfirmasi ditekan.
-     * @param {Function} [onCancel] - Callback jika tombol batal ditekan.
-     */
-    function showMessage(title, content, onConfirm, onCancel) {
-        const modal = document.getElementById('message-modal');
-        document.getElementById('modal-title').textContent = title;
-        document.getElementById('modal-content').innerHTML = content;
-        const actions = document.getElementById('modal-actions');
-        actions.innerHTML = '';
-
-        if (onCancel) {
-            const cancelBtn = document.createElement('button');
-            cancelBtn.textContent = 'Batal';
-            cancelBtn.className = 'bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg';
-            cancelBtn.onclick = () => {
-                modal.classList.add('hidden');
-                onCancel();
-            };
-            actions.appendChild(cancelBtn);
-        }
-
-        if (onConfirm) {
-            const confirmBtn = document.createElement('button');
-            confirmBtn.textContent = onCancel ? 'Konfirmasi' : 'OK';
-            confirmBtn.className = 'bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-4 rounded-lg';
             confirmBtn.onclick = () => {
-                modal.classList.add('hidden');
-                onConfirm();
+                box.classList.add('hidden');
+                box.classList.remove('flex');
+                if (onConfirm) onConfirm();
             };
-            actions.appendChild(confirmBtn);
-        }
-        
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
 
-    // --- HELPER LAINNYA ---
-    const getAuthHeaders = () => ({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${auth.token}` });
-    const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-
-
-    // ===================================================================================
-    // SELURUH KODE HANDLER DARI PDF ANDA DITEMPATKAN DI SINI
-    // Saya telah menyalinnya persis seperti yang Anda berikan.
-    // ===================================================================================
-    
-    // Order handlers
-    function showOrderForm() {
-        // ... (Kode showOrderForm Anda dari PDF)
-    }
-
-    function hideOrderForm() {
-        // ... (Kode hideOrderForm Anda dari PDF)
-    }
-
-    async function submitOrder(elements) {
-        // ... (Kode submitOrder Anda dari PDF)
-    }
-    
-    function renderOrderDetailModal(order) {
-        const modal = document.getElementById('order-detail-modal');
-        const content = document.getElementById('order-detail-content');
-        const statusClass = `status-${(order.status || '').toLowerCase()}`;
-        const totalHarga = formatRupiah(order.totalPrice || 0);
-
-        content.innerHTML = `
-            <div class="space-y-6">
-                <div class="p-4 bg-gray-700 rounded-xl flex justify-between items-center shadow-inner">
-                    <p class="text-lg text-gray-300 font-medium">Status Saat Ini:</p>
-                    <span class="px-4 py-2 rounded-full text-sm ${statusClass}">${order.status}</span>
-                </div>
-                <h4 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-2">Rincian Produk</h4>
-                <div class="grid grid-cols-2 gap-3 text-sm">
-                    <p class="text-gray-400">Nama Produk:</p>
-                    <p class="text-white font-semibold">${order.productName}</p>
-                    <p class="text-gray-400">Total Harga:</p>
-                    <p class="text-white font-semibold text-xl">${totalHarga}</p>
-                </div>
-                <h4 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-2">Detail Pengiriman</h4>
-                <div class="grid grid-cols-2 gap-3 text-sm">
-                    <p class="text-gray-400">Nama Penerima:</p>
-                    <p class="text-white">${order.buyerName}</p>
-                    <p class="text-gray-400">Nomor HP:</p>
-                    <p class="text-white">${order.buyerPhone}</p>
-                    <p class="text-gray-400">ID Pesanan:</p>
-                    <p class="text-white text-xs break-all">${order.id}</p>
-                    <p class="col-span-2 text-gray-400">Alamat Lengkap:</p>
-                    <p class="col-span-2 text-white">${order.buyerAddress}</p>
-                </div>
-                <h4 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-2">Informasi Lain</h4>
-                <div class="grid grid-cols-2 gap-3 text-sm">
-                    <p class="text-gray-400">Dipesan Pada:</p>
-                    <p class="text-white">${new Date(order.createdAt).toLocaleString('id-ID')}</p>
-                    <p class="text-gray-400">ID Pengguna:</p>
-                    <p class="text-white text-xs break-all">${order.userId || 'Guest'}</p>
-                </div>
-            </div>`;
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-
-    // PROFILE HANDLERS
-    async function renderProfileView() {
-        if (!auth.token) return;
-        document.getElementById('profile-username').textContent = auth.username;
-        document.getElementById('profile-type').textContent = auth.isAdmin ? 'Admin' : 'Regular User';
-        const orderTableBody = document.getElementById('user-order-table-body');
-        orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-cyan-400 italic"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat pesanan Anda...</td></tr>';
-
-        try {
-            const response = await fetch(`${API_BASE}/orders/user`, { headers: getAuthHeaders() });
-            if (!response.ok) throw new Error('Failed to fetch user orders');
-            userOrders = await response.json();
-
-            if (!Array.isArray(userOrders) || userOrders.length === 0) {
-                orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Anda belum memiliki riwayat pesanan.</td></tr>';
-                return;
+            if (onCancel) {
+                cancelBtn.classList.remove('hidden');
+                cancelBtn.onclick = () => {
+                    box.classList.add('hidden');
+                    box.classList.remove('flex');
+                    onCancel();
+                };
+            } else {
+                cancelBtn.classList.add('hidden');
             }
 
-            orderTableBody.innerHTML = userOrders.map(order => {
-                const statusClass = `status-${(order.status || '').toLowerCase()}`;
-                return `
-                <tr class="hover:bg-gray-700 transition duration-150">
-                    <td class="px-5 py-4 text-sm text-gray-300 w-[100px] truncate">${(order.id || '').substring(0, 8)}...</td>
-                    <td class="px-5 py-4 text-sm text-gray-300">${new Date(order.createdAt).toLocaleDateString('id-ID')}</td>
-                    <td class="px-5 py-4 text-sm font-semibold text-cyan-300">${formatRupiah(order.totalPrice)}</td>
-                    <td class="px-5 py-4 text-sm"><span class="px-3 py-1 rounded-full text-xs ${statusClass}">${order.status}</span></td>
-                    <td class="px-5 py-4 text-right">
-                        <button onclick="renderOrderDetailModal(userOrders.find(o => o.id === '${order.id}'))" class="text-cyan-400 hover:text-cyan-500 text-sm font-medium">
-                            <i class="fas fa-eye mr-1"></i> Detail
-                        </button>
-                    </td>
-                </tr>`;
-            }).join('');
-        } catch (error) {
-            console.error('User Order load error:', error);
-            orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-red-400 italic">Gagal memuat riwayat pesanan. Token mungkin tidak valid.</td></tr>';
-        }
-    }
-
-    function showEditProfileForm() {
-        if (!auth.token) {
-            showMessage("Login Diperlukan", "Silakan login terlebih dahulu untuk mengedit profil.");
-            return;
+            box.classList.remove('hidden');
+            box.classList.add('flex');
         }
 
-        const html = `<div>
-            <label class='block mb-2 text-gray-300 text-sm'>Username Baru</label>
-            <input id='new-username' class='w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white mb-3' placeholder='Masukkan username baru' value='${auth.username || ""}'>
-            <label class='block mb-2 text-gray-300 text-sm'>Password Baru (biarkan kosong jika tidak ingin mengganti)</label>
-            <input id='new-password' type='password' class='w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white mb-3' placeholder='Masukkan password baru'>
-        </div>`;
-        
-        showMessage("Edit Profil", html, async () => {
-             const newUsername = document.getElementById('new-username').value.trim();
-             const newPassword = document.getElementById('new-password').value;
+        function getAuthHeaders(includeJson = true) {
+            const headers = {};
+            if (includeJson) headers['Content-Type'] = 'application/json';
+            if (auth.token) headers['Authorization'] = 'Bearer ' + auth.token;
+            return headers;
+        }
 
-            if (!newUsername) {
-                showMessage("Validasi", "Username tidak boleh kosong.", () => showEditProfileForm()); // Kembali ke form jika gagal
-                return;
+        // Navigation
+        function navigate(viewName, id = null) {
+            const targetViewId = viewName.endsWith('-view') ? viewName : viewName + '-view';
+            currentView = viewName;
+
+            VIEWS.forEach(viewId => {
+                const el = document.getElementById(viewId);
+                if (el) el.classList.add('hidden');
+            });
+
+            const targetView = document.getElementById(targetViewId);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (viewName === 'admin-add' || viewName === 'admin-edit') {
+                document.getElementById('admin-view').classList.remove('hidden');
+                showAdminProductForm(viewName === 'admin-edit' ? id : null);
             }
+
+            // specific logic
+            if (viewName === 'home') {
+                loadProducts();
+                hideOrderForm();
+            } else if (viewName === 'detail' && id) {
+                loadProductDetail(id);
+                hideOrderForm();
+            } else if (viewName === 'profile') {
+                if (auth.token) {
+                    renderProfileView();
+                } else {
+                    navigate('auth');
+                }
+            } else if (viewName === 'admin') {
+                if (auth.isAdmin) {
+                    renderAdminDashboard();
+                } else {
+                    navigate('home');
+                    showMessage("Akses Ditolak", "Anda tidak memiliki hak akses Admin.", () => {});
+                }
+            }
+        }
+
+        // Auth handlers
+        function updateAuthUI() {
+            const authBtn = document.getElementById('auth-button');
+            if (authBtn) {
+                if (auth.token) {
+                    authBtn.innerHTML = `<i class="fas fa-user mr-2"></i><span>${auth.username}</span>`;
+                    authBtn.classList.remove('btn-primary');
+                    authBtn.classList.add('btn-outline');
+                    authBtn.onclick = () => navigate('profile');
+                } else {
+                    authBtn.innerHTML = `<i class="fas fa-sign-in-alt mr-2"></i><span>Login</span>`;
+                    authBtn.classList.remove('btn-outline');
+                    authBtn.classList.add('btn-primary');
+                    authBtn.onclick = () => navigate('auth');
+                }
+            } else {
+                console.error("Elemen 'auth-button' tidak ditemukan.");
+            }
+
+            // admin auto navigation logic
+            if (auth.isAdmin && currentView !== 'admin' && auth.token) {
+                navigate('admin');
+            } else if (auth.isAdmin === false && currentView === 'admin' && auth.token) {
+                navigate('home');
+            }
+        }
+
+        function handleAuthClick() {
+            if (auth.token) {
+                showMessage("Konfirmasi Logout", "Apakah Anda yakin ingin keluar dari akun?", () => {
+                    auth.token = null;
+                    auth.isAdmin = false;
+                    auth.username = null;
+                    localStorage.removeItem('fanderToken');
+                    localStorage.removeItem('fanderIsAdmin');
+                    localStorage.removeItem('fanderUsername');
+                    updateAuthUI();
+                    navigate('home');
+                    showMessage("Berhasil", "Anda telah berhasil logout.", () => {});
+                }, () => {});
+            } else {
+                navigate('auth');
+            }
+        }
+
+        function toggleAuthMode() {
+            auth.isRegisterMode = !auth.isRegisterMode;
+            document.getElementById('auth-title').textContent = auth.isRegisterMode ? 'Daftar Akun Baru' : 'Login Akun';
+            document.getElementById('auth-submit-btn').textContent = auth.isRegisterMode ? 'Daftar' : 'Login';
+            document.getElementById('auth-toggle').innerHTML = auth.isRegisterMode ?
+                'Sudah punya akun? <button onclick="toggleAuthMode()" class="text-cyan-400 hover:text-cyan-500 font-bold transition">Login di sini</button>' :
+                'Belum punya akun? <button onclick="toggleAuthMode()" class="text-cyan-400 hover:text-cyan-500 font-bold transition">Daftar di sini</button>';
+        }
+
+        async function handleAuthSubmit(elements) {
+            const username = elements.username.value;
+            const password = elements.password.value;
+            const endpoint = auth.isRegisterMode ? 'register' : 'login';
 
             try {
-                const response = await fetch(`${API_BASE}/users/profile`, {
+                const response = await fetch(`${API_BASE}/auth/${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    auth.token = result.token;
+                    auth.isAdmin = result.isAdmin;
+                    auth.username = result.username;
+
+                    localStorage.setItem('fanderToken', result.token);
+                    localStorage.setItem('fanderIsAdmin', result.isAdmin);
+                    localStorage.setItem('fanderUsername', result.username);
+
+                    updateAuthUI();
+                    elements.password.value = '';
+
+                    const successMessage = auth.isRegisterMode ? `Akun ${username} berhasil didaftarkan!` : `Selamat datang kembali, ${username}!`;
+
+                    showMessage("Berhasil", successMessage, () => {
+                        navigate(auth.isAdmin ? 'admin' : 'home');
+                    });
+                } else {
+                    showMessage("Gagal", result.message || `Gagal ${auth.isRegisterMode ? 'registrasi' : 'login'}.`);
+                }
+            } catch (error) {
+                console.error('Auth Error:', error);
+                showMessage("Error Jaringan", "Gagal terhubung ke server API. Pastikan server sudah berjalan.", () => {});
+            }
+        }
+
+        // --- PRODUCT HANDLERS (grouped rendering) ---
+        async function loadProducts() {
+            try {
+                const response = await fetch(`${API_BASE}/products`);
+                if (!response.ok) throw new Error('Failed to fetch products');
+                products = await response.json();
+                renderProductList(products);
+            } catch (error) {
+                console.error('Product load error:', error);
+                // Fallback: show a sample list including ID Card
+                products = [
+                    { id: 'fallback-idcard', name: 'ID Card Kulit', category: 'Aksesoris', price: 550000, description: 'ID Card holder berbahan kulit premium untuk tampilan profesional.', imageUrl: 'https://placehold.co/400x300/1f2937/ffffff?text=ID+CARD' },
+                    { id: 'fallback-tas', name: 'Tas Selempang Pria', category: 'Tas', price: 950000, description: 'Tas kulit sapi asli, cocok untuk kerja dan gaya kasual.', imageUrl: 'https://placehold.co/400x300/374151/ffffff?text=TS-SLMPNG' },
+                    { id: 'fallback-jaket', name: 'Jaket Kulit Rocker', category: 'Jaket', price: 2500000, description: 'Jaket kulit domba kualitas premium dengan gaya klasik.', imageUrl: 'https://placehold.co/400x300/1f2937/ffffff?text=JKT-RK' }
+                ];
+                renderProductList(products);
+            }
+        }
+
+        // Grouped renderer: products grouped by category, each group shows grid
+        function renderProductList(productsArray) {
+            const listContainer = document.getElementById('product-list');
+            listContainer.innerHTML = '';
+
+            if (!Array.isArray(productsArray) || productsArray.length === 0) {
+                listContainer.innerHTML = '<p class="text-center text-gray-400 col-span-full py-10">Tidak ada produk saat ini.</p>';
+                return;
+            }
+
+            // group by category
+            const grouped = {};
+            productsArray.forEach(p => {
+                const cat = p.category || 'Uncategorized';
+                if (!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(p);
+            });
+
+            // render each category as its own block (heading + grid)
+            Object.keys(grouped).forEach(category => {
+                // category heading
+                const heading = document.createElement('div');
+                heading.className = 'col-span-full';
+                heading.innerHTML = `<h3 class="text-2xl font-bold text-white mt-10 mb-4 border-b border-gray-700 pb-2">${category}</h3>`;
+                listContainer.appendChild(heading);
+
+                // grid container
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 col-span-full';
+                grouped[category].forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card cursor-pointer';
+                    card.setAttribute('onclick', `navigate('detail','${p.id}')`);
+                    card.innerHTML = `
+                        <img src="${p.imageUrl || 'https://placehold.co/400x300/9ca3af/ffffff?text=No+Image'}" alt="${p.name}" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="p-5">
+                            <h3 class="text-xl font-semibold text-white mb-2">${p.name}</h3>
+                            <p class="text-sm text-gray-400 mb-3">${p.category || ''}</p>
+                            <p class="text-2xl font-bold text-cyan-400">${formatRupiah(p.price || 0)}</p>
+                            <button class="w-full mt-4 btn-primary text-sm shadow-md">Lihat Detail <i class="fas fa-chevron-right ml-2 text-xs"></i></button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                listContainer.appendChild(grid);
+            });
+        }
+
+        async function loadProductDetail(productId) {
+            currentProduct = products.find(p => p.id === productId);
+            if (!currentProduct) {
+                try {
+                    const response = await fetch(`${API_BASE}/products/${productId}`);
+                    if (!response.ok) throw new Error('Product not found');
+                    currentProduct = await response.json();
+                } catch (error) {
+                    navigate('home');
+                    showMessage("Gagal", "Produk tidak ditemukan.", () => {});
+                    return;
+                }
+            }
+
+            const detailContainer = document.getElementById('product-detail-content');
+            detailContainer.innerHTML = `
+                <div class="lg:w-1/2">
+                    <img src="${currentProduct.imageUrl || 'https://placehold.co/800x600/9ca3af/ffffff?text=No+Image'}" alt="${currentProduct.name}" class="w-full h-auto object-cover rounded-xl shadow-2xl">
+                </div>
+                <div class="lg:w-1/2">
+                    <p class="text-sm text-gray-400 font-medium mb-1">${currentProduct.category}</p>
+                    <h2 class="text-4xl font-extrabold text-white mb-4">${currentProduct.name}</h2>
+                    <p class="text-5xl font-extrabold text-cyan-400 mb-6">${formatRupiah(currentProduct.price)}</p>
+                    <h4 class="text-lg font-semibold text-gray-200 mb-2">Deskripsi Produk:</h4>
+                    <p class="text-gray-300 leading-relaxed">${currentProduct.description || '-'}</p>
+                    <button onclick="showOrderForm()" class="btn-primary mt-8 py-3 px-8 w-full md:w-auto text-lg">
+                        <i class="fas fa-money-bill-wave mr-2"></i>
+                        Beli Sekarang (COD)
+                    </button>
+                </div>
+            `;
+            document.getElementById('order-product-id').value = currentProduct.id;
+        }
+
+        // Order handlers
+        function showOrderForm() {
+            if (!currentProduct) return;
+            document.getElementById('summary-product-name').textContent = currentProduct.name;
+            document.getElementById('summary-product-price-val').textContent = formatRupiah(currentProduct.price);
+            document.getElementById('summary-total-price').textContent = formatRupiah(currentProduct.price);
+
+            const provinceSelect = document.getElementById('buyer-province');
+            provinceSelect.innerHTML = '<option value="">Pilih Provinsi...</option>';
+            INDONESIAN_PROVINCES.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p;
+                opt.textContent = p;
+                provinceSelect.appendChild(opt);
+            });
+
+            document.getElementById('order-form-container').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('order-form-container').offsetTop, behavior: 'smooth' });
+        }
+
+        function hideOrderForm() {
+            document.getElementById('order-form-container').classList.add('hidden');
+            try { document.getElementById('cod-order-form').reset(); } catch (e) {}
+        }
+
+        async function submitOrder(elements) {
+            if (!currentProduct) {
+                showMessage("Error", "Produk tidak ditemukan. Silakan ulangi dari awal.", () => {});
+                return;
+            }
+
+            const fullAddress = `${elements.buyerAddressDetail.value}, ${elements.buyerCity.value}, ${elements.buyerProvince.value}, Kode Pos ${elements.buyerZipcode.value}`;
+
+            const orderData = {
+                productId: currentProduct.id,
+                buyerName: elements.buyerName.value,
+                buyerPhone: elements.buyerPhone.value,
+                buyerAddress: fullAddress
+            };
+
+            try {
+                const headers = getAuthHeaders(true);
+                const response = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    hideOrderForm();
+                    showMessage("Pesanan Berhasil!", result.message || "Pesanan Anda berhasil dicatat. Kami akan segera menghubungi Anda.", () => {
+                        navigate('home');
+                    });
+                } else {
+                    showMessage("Gagal Pesan", result.message || "Terjadi kesalahan saat membuat pesanan.", () => {});
+                }
+            } catch (error) {
+                console.error('Submit Order Error:', error);
+                showMessage("Error Jaringan", "Gagal terhubung ke server API. Pastikan server sudah berjalan.", () => {});
+            }
+        }
+
+        function renderOrderDetailModal(order) {
+            const modal = document.getElementById('order-detail-modal');
+            const content = document.getElementById('order-detail-content');
+            const statusClass = `status-${(order.status || '').toLowerCase()}`;
+            const totalHarga = formatRupiah(order.totalPrice || 0);
+
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="p-4 bg-gray-700 rounded-xl flex justify-between items-center shadow-inner">
+                        <p class="text-lg text-gray-300 font-medium">Status Saat Ini:</p>
+                        <span class="px-4 py-2 rounded-full text-sm ${statusClass}">${order.status}</span>
+                    </div>
+
+                    <h4 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-2">Rincian Produk</h4>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <p class="text-gray-400">Nama Produk:</p>
+                        <p class="text-white font-semibold">${order.productName}</p>
+                        <p class="text-gray-400">Total Harga:</p>
+                        <p class="text-white font-semibold text-xl">${totalHarga}</p>
+                    </div>
+
+                    <h4 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-2">Detail Pengiriman</h4>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <p class="text-gray-400">Nama Penerima:</p>
+                        <p class="text-white">${order.buyerName}</p>
+                        <p class="text-gray-400">Nomor HP:</p>
+                        <p class="text-white">${order.buyerPhone}</p>
+                        <p class="text-gray-400">ID Pesanan:</p>
+                        <p class="text-white text-xs break-all">${order.id}</p>
+                        <p class="col-span-2 text-gray-400">Alamat Lengkap:</p>
+                        <p class="col-span-2 text-white">${order.buyerAddress}</p>
+                    </div>
+
+                    <h4 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-2">Informasi Lain</h4>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <p class="text-gray-400">Dipesan Pada:</p>
+                        <p class="text-white">${new Date(order.createdAt).toLocaleString('id-ID')}</p>
+                        <p class="text-gray-400">ID Pengguna:</p>
+                        <p class="text-white text-xs break-all">${order.userId || 'Guest'}</p>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // --- PROFILE HANDLERS ---
+        async function renderProfileView() {
+            if (!auth.token) return;
+            document.getElementById('profile-username').textContent = auth.username;
+            document.getElementById('profile-type').textContent = auth.isAdmin ? 'Admin' : 'Regular User';
+
+            const orderTableBody = document.getElementById('user-order-table-body');
+            orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-cyan-400 italic"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat pesanan Anda...</td></tr>';
+
+            try {
+                const response = await fetch(`${API_BASE}/orders/user`, { headers: getAuthHeaders() });
+                if (!response.ok) throw new Error('Failed to fetch user orders');
+                userOrders = await response.json();
+
+                if (!Array.isArray(userOrders) || userOrders.length === 0) {
+                    orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Anda belum memiliki riwayat pesanan.</td></tr>';
+                    return;
+                }
+
+                orderTableBody.innerHTML = userOrders.map(order => {
+                    const statusClass = `status-${(order.status || '').toLowerCase()}`;
+                    return `
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                            <td class="px-5 py-4 text-sm text-gray-300 w-[100px] truncate">${(order.id || '').substring(0, 8)}...</td>
+                            <td class="px-5 py-4 text-sm text-gray-300">${new Date(order.createdAt).toLocaleDateString('id-ID')}</td>
+                            <td class="px-5 py-4 text-sm font-semibold text-cyan-300">${formatRupiah(order.totalPrice)}</td>
+                            <td class="px-5 py-4 text-sm"><span class="px-3 py-1 rounded-full text-xs ${statusClass}">${order.status}</span></td>
+                            <td class="px-5 py-4 text-right">
+                                <button onclick="renderOrderDetailModal(userOrders.find(o => o.id === '${order.id}'))" class="text-cyan-400 hover:text-cyan-500 text-sm font-medium">
+                                    <i class="fas fa-eye mr-1"></i> Detail
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('User Order load error:', error);
+                orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-red-400 italic">Gagal memuat riwayat pesanan. Token mungkin tidak valid.</td></tr>';
+            }
+        }
+
+        // Edit profile modal using existing showMessage (calls API)
+        function showEditProfileForm() {
+            if (!auth.token) {
+                showMessage("Login Diperlukan", "Silakan login terlebih dahulu untuk mengedit profil.");
+                return;
+            }
+
+            const html = `<div>
+                <label class='block mb-2 text-gray-300 text-sm'>Username Baru</label>
+                <input id='new-username' class='form-input mb-3' placeholder='Masukkan username baru' value='${auth.username || ""}'>
+                <label class='block mb-2 text-gray-300 text-sm'>Password Baru (biarkan kosong jika tidak ingin mengganti)</label>
+                <input id='new-password' type='password' class='form-input mb-3' placeholder='Masukkan password baru'>
+            </div>`;
+
+            showMessage("Edit Profil", html, async () => {
+                const newUsername = document.getElementById('new-username').value.trim();
+                const newPassword = document.getElementById('new-password').value;
+
+                if (!newUsername) {
+                    showMessage("Validasi", "Username tidak boleh kosong.");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${API_BASE}/users/profile`, {
+                        method: 'PUT',
+                        headers: getAuthHeaders(),
+                        body: JSON.stringify({ username: newUsername, password: newPassword })
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        showMessage("Berhasil", "Profil berhasil diperbarui. Silakan login ulang.", () => {
+                            // logout after profile update to refresh token/username
+                            auth.token = null;
+                            auth.isAdmin = false;
+                            auth.username = null;
+                            localStorage.removeItem('fanderToken');
+                            localStorage.removeItem('fanderIsAdmin');
+                            localStorage.removeItem('fanderUsername');
+                            updateAuthUI();
+                            navigate('home');
+                        });
+                    } else {
+                        showMessage("Gagal", result.message || "Tidak dapat memperbarui profil.");
+                    }
+                } catch (err) {
+                    console.error('Profile update error', err);
+                    showMessage("Error Jaringan", "Gagal menghubungi server API.");
+                }
+            }, () => {});
+        }
+
+        // --- ADMIN HANDLERS ---
+        async function renderAdminDashboard() {
+            if (!auth.isAdmin) return;
+            await loadProducts();
+            renderAdminProductTable(products);
+            await loadAdminOrders();
+            renderAdminOrderTable(orders);
+            document.getElementById('admin-form-container').classList.add('hidden');
+        }
+
+        async function loadAdminOrders() {
+            try {
+                const response = await fetch(`${API_BASE}/orders`, { headers: getAuthHeaders() });
+                if (!response.ok) throw new Error('Failed to fetch admin orders');
+                orders = await response.json();
+            } catch (error) {
+                console.error('Admin Order load error:', error);
+                orders = [];
+                const orderTableBody = document.getElementById('admin-order-table-body');
+                orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-red-400 italic">Gagal memuat data pesanan.</td></tr>';
+            }
+        }
+
+        function renderAdminOrderTable(ordersArray) {
+            const tableBody = document.getElementById('admin-order-table-body');
+            tableBody.innerHTML = '';
+
+            if (!Array.isArray(ordersArray) || ordersArray.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Belum ada pesanan masuk.</td></tr>';
+                return;
+            }
+
+            ordersArray.forEach(order => {
+                const statusClass = `status-${(order.status || '').toLowerCase()}`;
+                const row = `
+                    <tr class="hover:bg-gray-700 transition duration-150">
+                        <td class="px-5 py-4 text-sm text-gray-300 w-[100px] truncate">${(order.id || '').substring(0, 8)}...</td>
+                        <td class="px-5 py-4 text-sm text-gray-300">
+                            <span class="font-semibold">${order.productName}</span><br>
+                            <span class="text-cyan-400 font-bold">${formatRupiah(order.totalPrice)}</span>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-gray-300">
+                            <span class="font-medium">${order.buyerName}</span><br>
+                            <span class="text-xs text-gray-400">${order.buyerPhone}</span>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <span id="status-${order.id}" class="px-3 py-1 rounded-full text-xs ${statusClass}">${order.status}</span>
+                        </td>
+                        <td class="px-5 py-4 text-right space-x-2">
+                            <button onclick="renderOrderDetailModal(orders.find(o => o.id === '${order.id}'))" class="text-cyan-400 hover:text-cyan-500 text-sm font-medium"><i class="fas fa-eye"></i></button>
+                            <select onchange="updateOrderStatus('${order.id}', this.value)" class="form-select form-select-sm bg-gray-600 text-sm w-fit inline-block py-1">
+                                <option value="${order.status}">${order.status} (Saat Ini)</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Complete">Complete</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            if (!auth.isAdmin) return showMessage("Akses Ditolak", "Hanya Admin yang dapat mengubah status pesanan.");
+            try {
+                const response = await fetch(`${API_BASE}/orders/${orderId}/status`, {
                     method: 'PUT',
                     headers: getAuthHeaders(),
-                    body: JSON.stringify({ username: newUsername, password: newPassword }),
+                    body: JSON.stringify({ status: newStatus })
                 });
 
                 const result = await response.json();
                 if (response.ok) {
-                    showMessage("Berhasil", "Profil berhasil diperbarui. Silakan login ulang.", () => {
-                        logout(); // Paksa logout agar login ulang
-                    });
+                    await loadAdminOrders();
+                    renderAdminOrderTable(orders);
+                    showMessage("Sukses", result.message, () => {});
                 } else {
-                    showMessage("Gagal", result.message || "Tidak dapat memperbarui profil.", () => showEditProfileForm());
+                    showMessage("Gagal Update", result.message || "Gagal memperbarui status pesanan.", () => {});
                 }
-            } catch (err) {
-                console.error('Profile update error', err);
-                showMessage("Error Jaringan", "Gagal menghubungi server API.", () => showEditProfileForm());
+            } catch (error) {
+                console.error('Update Status Error:', error);
+                showMessage("Error Jaringan", "Gagal terhubung ke server API.", () => {});
             }
-        }, () => {});
-    }
-
-    // ADMIN HANDLERS
-    async function renderAdminDashboard() {
-        if (!auth.isAdmin) return;
-        await loadProducts();
-        renderAdminProductTable(products);
-        await loadAdminOrders();
-        renderAdminOrderTable(orders);
-        document.getElementById('admin-form-container').classList.add('hidden');
-    }
-
-    async function loadAdminOrders() {
-        try {
-            const response = await fetch(`${API_BASE}/orders`, { headers: getAuthHeaders() });
-            if (!response.ok) throw new Error('Failed to fetch admin orders');
-            orders = await response.json();
-        } catch (error) {
-            console.error('Admin Order load error:', error);
-            orders = [];
-            const orderTableBody = document.getElementById('admin-order-table-body');
-            orderTableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-red-400 italic">Gagal memuat data pesanan.</td></tr>';
-        }
-    }
-
-    function renderAdminOrderTable(ordersArray) {
-        const tableBody = document.getElementById('admin-order-table-body');
-        tableBody.innerHTML = '';
-        if (!Array.isArray(ordersArray) || ordersArray.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Belum ada pesanan masuk.</td></tr>';
-            return;
         }
 
-        ordersArray.forEach(order => {
-            const statusClass = `status-${(order.status || '').toLowerCase()}`;
-            const row = `
-            <tr class="hover:bg-gray-700 transition duration-150">
-                <td class="px-5 py-4 text-sm text-gray-300 w-[100px] truncate">${(order.id || '').substring(0, 8)}...</td>
-                <td class="px-5 py-4 text-sm text-gray-300">
-                    <span class="font-semibold">${order.productName}</span><br>
-                    <span class="text-cyan-400 font-bold">${formatRupiah(order.totalPrice)}</span>
-                </td>
-                <td class="px-5 py-4 text-sm text-gray-300">
-                    <span class="font-medium">${order.buyerName}</span><br>
-                    <span class="text-xs text-gray-400">${order.buyerPhone}</span>
-                </td>
-                <td class="px-5 py-4 text-sm">
-                    <span id="status-${order.id}" class="px-3 py-1 rounded-full text-xs ${statusClass}">${order.status}</span>
-                </td>
-                <td class="px-5 py-4 text-right space-x-2">
-                    <button onclick="renderOrderDetailModal(orders.find(o => o.id === '${order.id}'))" class="text-cyan-400 hover:text-cyan-500 text-sm font-medium"><i class="fas fa-eye"></i></button>
-                    <select onchange="updateOrderStatus('${order.id}', this.value)" class="form-select form-select-sm bg-gray-600 text-sm w-fit inline-block py-1 rounded-md border-gray-500">
-                        <option value="${order.status}" disabled selected>${order.status} (Saat Ini)</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Processing">Processing</option>
-                        <option value="Shipped">Shipped</option>
-                        <option value="Complete">Complete</option>
-                        <option value="Cancelled">Cancelled</option>
-                    </select>
-                </td>
-            </tr>`;
-            tableBody.innerHTML += row;
-        });
-    }
+        // Admin product table
+        function renderAdminProductTable(productsArray) {
+            const tableBody = document.getElementById('admin-product-table-body');
+            tableBody.innerHTML = '';
 
-    async function updateOrderStatus(orderId, newStatus) {
-        if (!auth.isAdmin) return showMessage("Akses Ditolak", "Hanya Admin yang dapat mengubah status pesanan.");
-        try {
-            const response = await fetch(`${API_BASE}/orders/${orderId}/status`, {
-                method: 'PUT',
-                headers: getAuthHeaders(),
-                body: JSON.stringify({ status: newStatus }),
+            if (!Array.isArray(productsArray) || productsArray.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" class="px-5 py-4 text-center text-gray-400 italic">Belum ada produk terdaftar.</td></tr>';
+                return;
+            }
+
+            productsArray.forEach(product => {
+                const row = `
+                    <tr class="hover:bg-gray-700 transition duration-150">
+                        <td class="px-5 py-4 text-sm text-gray-300 font-medium">${product.name}</td>
+                        <td class="px-5 py-4 text-sm text-cyan-300 font-semibold">${formatRupiah(product.price)}</td>
+                        <td class="px-5 py-4 text-sm text-gray-400">${product.category}</td>
+                        <td class="px-5 py-4 text-right space-x-2">
+                            <button onclick="navigate('admin-edit','${product.id}')" class="text-blue-400 hover:text-blue-500 text-sm font-medium"><i class="fas fa-edit"></i> Edit</button>
+                            <button onclick="deleteProduct('${product.id}')" class="text-red-400 hover:text-red-500 text-sm font-medium"><i class="fas fa-trash"></i> Hapus</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
             });
-            const result = await response.json();
-            if (response.ok) {
-                showMessage("Sukses", result.message, () => {});
-                // Refresh data
-                const orderToUpdate = orders.find(o => o.id === orderId);
-                if(orderToUpdate) orderToUpdate.status = newStatus;
-                renderAdminOrderTable(orders);
-            } else {
-                showMessage("Gagal Update", result.message || "Gagal memperbarui status pesanan.", () => {});
-            }
-        } catch (error) {
-            console.error('Update Status Error:', error);
-            showMessage("Error Jaringan", "Gagal terhubung ke server API.", () => {});
-        }
-    }
-
-    function renderAdminProductTable(productsArray) {
-        const tableBody = document.getElementById('admin-product-table-body');
-        tableBody.innerHTML = '';
-
-        if (!Array.isArray(productsArray) || productsArray.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="4" class="px-5 py-4 text-center text-gray-400 italic">Belum ada produk terdaftar.</td></tr>';
-            return;
         }
 
-        productsArray.forEach(product => {
-            const row = `
-            <tr class="hover:bg-gray-700 transition duration-150">
-                <td class="px-5 py-4 text-sm text-gray-300 font-medium">${product.name}</td>
-                <td class="px-5 py-4 text-sm text-cyan-300 font-semibold">${formatRupiah(product.price)}</td>
-                <td class="px-5 py-4 text-sm text-gray-400">${product.category}</td>
-                <td class="px-5 py-4 text-right space-x-2">
-                    <button onclick="navigate('admin-edit','${product.id}')" class="text-blue-400 hover:text-blue-500 text-sm font-medium"><i class="fas fa-edit"></i> Edit</button>
-                    <button onclick="deleteProduct('${product.id}')" class="text-red-400 hover:text-red-500 text-sm font-medium"><i class="fas fa-trash"></i> Hapus</button>
-                </td>
-            </tr>`;
-            tableBody.innerHTML += row;
-        });
-    }
-    
-    function showAdminProductForm(productId = null) {
-        const formContainer = document.getElementById('admin-form-container');
-        const formElements = document.getElementById('admin-product-form').elements;
-        const isEdit = productId !== null;
+        function showAdminProductForm(productId = null) {
+            const formContainer = document.getElementById('admin-form-container');
+            const formElements = document.getElementById('admin-product-form').elements;
+            const isEdit = productId !== null;
 
-        formContainer.classList.remove('hidden');
-        document.getElementById('form-title').textContent = isEdit ? 'Edit Produk' : 'Tambah Produk Baru';
-        document.getElementById('admin-form-submit-btn').innerHTML = isEdit ? '<i class="fas fa-save mr-2"></i><span>Update Produk</span>' : '<i class="fas fa-plus-circle mr-2"></i><span>Tambah Produk</span>';
+            formContainer.classList.remove('hidden');
+            document.getElementById('form-title').textContent = isEdit ? 'Edit Produk' : 'Tambah Produk Baru';
+            document.getElementById('admin-form-submit-btn').innerHTML = isEdit ? '<i class="fas fa-save mr-2"></i><span>Update Produk</span>' : '<i class="fas fa-plus-circle mr-2"></i><span>Tambah Produk</span>';
 
-        document.getElementById('admin-product-form').reset();
-        formElements.id.value = '';
+            document.getElementById('admin-product-form').reset();
+            formElements.id.value = '';
 
-        if (isEdit) {
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                formElements.id.value = product.id;
-                formElements.name.value = product.name;
-                formElements.category.value = product.category;
-                formElements.price.value = product.price;
-                formElements.imageUrl.value = product.imageUrl;
-                formElements.description.value = product.description;
+            if (isEdit) {
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    formElements.id.value = product.id;
+                    formElements.name.value = product.name;
+                    formElements.category.value = product.category;
+                    formElements.price.value = product.price;
+                    formElements.imageUrl.value = product.imageUrl;
+                    formElements.description.value = product.description;
+                }
             }
         }
-    }
 
-    async function handleAdminProductSubmit(elements) {
-        if (!auth.isAdmin) return showMessage("Akses Ditolak", "Hanya Admin yang dapat mengelola produk.");
-        const productId = elements.id.value;
-        const isUpdate = !!productId;
-        const method = isUpdate ? 'PUT' : 'POST';
-        const url = isUpdate ? `${API_BASE}/products/${productId}` : `${API_BASE}/products`;
+        async function handleAdminProductSubmit(elements) {
+            if (!auth.isAdmin) return showMessage("Akses Ditolak", "Hanya Admin yang dapat mengelola produk.");
 
-        const productData = {
-            name: elements.name.value,
-            category: elements.category.value,
-            price: Number(elements.price.value),
-            imageUrl: elements.imageUrl.value,
-            description: elements.description.value,
-        };
+            const productId = elements.id.value;
+            const isUpdate = !!productId;
+            const method = isUpdate ? 'PUT' : 'POST';
+            const url = isUpdate ? `${API_BASE}/products/${productId}` : `${API_BASE}/products`;
 
-        try {
-            const response = await fetch(url, {
-                method,
-                headers: getAuthHeaders(),
-                body: JSON.stringify(productData)
-            });
-            const result = await response.json();
-            if (response.ok) {
-                showMessage("Sukses", `Produk ${isUpdate ? 'diperbarui' : 'ditambahkan'}!`, () => {
-                    navigate('admin');
-                });
-            } else {
-                showMessage("Gagal", result.message || `Gagal ${isUpdate ? 'memperbarui' : 'menambahkan'} produk.`, () => {});
-            }
-        } catch (error) {
-            console.error('Admin Product Error:', error);
-            showMessage("Error Jaringan", "Gagal terhubung ke server API.", () => {});
-        }
-    }
+            const productData = {
+                name: elements.name.value,
+                category: elements.category.value,
+                price: Number(elements.price.value),
+                imageUrl: elements.imageUrl.value,
+                description: elements.description.value,
+            };
 
-    async function deleteProduct(productId) {
-        if (!auth.isAdmin) return showMessage("Akses Ditolak", "Hanya Admin yang dapat menghapus produk.");
-        showMessage("Konfirmasi Hapus", "Apakah Anda yakin ingin menghapus produk ini? Tindakan ini tidak dapat dibatalkan.", async () => {
             try {
-                const response = await fetch(`${API_BASE}/products/${productId}`, {
-                    method: 'DELETE',
-                    headers: getAuthHeaders()
+                const response = await fetch(url, {
+                    method,
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify(productData)
                 });
 
-                if (response.status === 204) {
-                    showMessage("Sukses", "Produk berhasil dihapus.", () => {
+                const result = await response.json();
+                if (response.ok) {
+                    showMessage("Sukses", `Produk ${isUpdate ? 'diperbarui' : 'ditambahkan'}!`, () => {
                         navigate('admin');
                     });
                 } else {
-                    const result = await response.json();
-                    showMessage("Gagal", result.message || "Gagal menghapus produk.", () => {});
+                    showMessage("Gagal", result.message || `Gagal ${isUpdate ? 'memperbarui' : 'menambahkan'} produk.`, () => {});
                 }
             } catch (error) {
-                console.error('Delete Product Error:', error);
+                console.error('Admin Product Error:', error);
                 showMessage("Error Jaringan", "Gagal terhubung ke server API.", () => {});
             }
-        }, () => {});
-    }
-
-    // --- FUNGSI goBackToAdminDashboard() DIHAPUS SESUAI PERMINTAAN ---
-    
-    // --- INITIALIZATION ---
-    document.addEventListener('DOMContentLoaded', () => {
-        updateAuthUI();
-        // Arahkan ke dashboard jika admin, jika tidak ke halaman utama
-        const initialView = auth.isAdmin ? 'admin' : 'home';
-        navigate(initialView);
-    });
-
-    // Dummy functions untuk kelengkapan, Anda bisa mengisinya sesuai kebutuhan
-    async function loadProducts() { 
-        try {
-            const response = await fetch(`${API_BASE}/products`);
-            if(!response.ok) throw new Error("Gagal memuat produk");
-            products = await response.json();
-        } catch(error) {
-            console.error("Load products error:", error);
-            products = [];
         }
-    }
 
-    function renderProductList(productsArray) {
-        const productListContainer = document.getElementById('product-list');
-        if (productsArray.length === 0) {
-            productListContainer.innerHTML = '<p class="text-center text-gray-400 col-span-full">Gagal memuat produk atau belum ada produk.</p>';
-            return;
-        }
-        productListContainer.innerHTML = productsArray.map(p => `
-            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-cyan-500/50 transition-shadow duration-300">
-                <img src="${p.imageUrl}" alt="${p.name}" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-bold text-white">${p.name}</h3>
-                    <p class="text-gray-400 text-sm mb-2">${p.category}</p>
-                    <p class="text-lg font-semibold text-cyan-400 mb-4">${formatRupiah(p.price)}</p>
-                    <p class="text-gray-300 text-sm mb-4 h-16 overflow-hidden">${p.description}</p>
-                    <button class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition">Lihat Detail</button>
-                </div>
-            </div>
-        `).join('');
-    }
+        async function deleteProduct(productId) {
+            if (!auth.isAdmin) return showMessage("Akses Ditolak", "Hanya Admin yang dapat menghapus produk.");
 
-    function showAuthForm(type) {
-        const isLogin = type === 'login';
-        const title = isLogin ? 'Login Akun' : 'Buat Akun Baru';
-        const html = `
-            <div class="space-y-4">
-                 <div>
-                    <label class="block text-sm text-gray-300 mb-1">Username</label>
-                    <input id="auth-username" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white" required>
-                </div>
-                <div>
-                    <label class="block text-sm text-gray-300 mb-1">Password</label>
-                    <input id="auth-password" type="password" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white" required>
-                </div>
-            </div>
-        `;
+            showMessage("Konfirmasi Hapus", "Apakah Anda yakin ingin menghapus produk ini? Tindakan ini tidak dapat dibatalkan.", async () => {
+                try {
+                    const response = await fetch(`${API_BASE}/products/${productId}`, {
+                        method: 'DELETE',
+                        headers: getAuthHeaders(false)
+                    });
 
-        showMessage(title, html, async () => {
-            const username = document.getElementById('auth-username').value;
-            const password = document.getElementById('auth-password').value;
-            if(!username || !password) {
-                 showMessage("Error", "Username dan password tidak boleh kosong.", () => showAuthForm(type));
-                 return;
-            }
-
-            try {
-                const response = await fetch(`${API_BASE}/auth/${type}`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({username, password})
-                });
-                const result = await response.json();
-                if(response.ok){
-                    auth.token = result.token;
-                    auth.username = result.username;
-                    auth.isAdmin = result.isAdmin;
-                    localStorage.setItem('fanderToken', auth.token);
-                    localStorage.setItem('fanderUsername', auth.username);
-                    localStorage.setItem('fanderIsAdmin', auth.isAdmin);
-                    updateAuthUI();
-                    navigate(auth.isAdmin ? 'admin' : 'home');
-                } else {
-                    showMessage("Gagal", result.message, () => showAuthForm(type));
+                    if (response.status === 204) {
+                        showMessage("Sukses", "Produk berhasil dihapus.", () => {
+                            navigate('admin');
+                        });
+                    } else {
+                        const result = await response.json();
+                        showMessage("Gagal", result.message || "Gagal menghapus produk.", () => {});
+                    }
+                } catch (error) {
+                    console.error('Delete Product Error:', error);
+                    showMessage("Error Jaringan", "Gagal terhubung ke server API.", () => {});
                 }
-            } catch(error) {
-                 showMessage("Error Jaringan", "Gagal terhubung ke server.", () => showAuthForm(type));
+            }, () => {});
+        }
+
+        // --- NEW: goBackToAdminDashboard filter ---
+        function goBackToAdminDashboard() {
+            if (auth.isAdmin) {
+                navigate('admin');
+                renderAdminDashboard();
+            } else {
+                showMessage("Akses Ditolak", "Hanya admin yang dapat membuka dashboard ini.");
             }
+        }
 
-        }, () => {});
-    }
-
-</script>
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+            navigate(auth.isAdmin ? 'admin' : 'home');
+        });
+    </script>
 </body>
+
 </html>
