@@ -76,31 +76,15 @@ async function writeData(data) {
 }
 
 // Authentication helper
-function generateToken() {
-  return crypto.randomUUID();
-}
-// --- FITUR L: DASHBOARD ADMIN BARU ---
-function goToAdminDashboard() {
-  if (!auth.isAdmin) {
-    showMessage("Akses Ditolak", "Hanya admin yang dapat membuka dashboard ini.");
-    return;
-  }
-
-  // Pastikan area form admin disembunyikan (biar tampilan bersih)
-  const formContainer = document.getElementById('admin-form-container');
-  if (formContainer) formContainer.classList.add('hidden');
-
-  // Navigasi ke halaman admin & muat ulang data
-  navigate('admin');
-  renderAdminDashboard();
-
-  showMessage("Dashboard Admin", "Kembali ke halaman utama admin berhasil!");
-}
-
 async function findUserByToken(token) {
   const data = await readData();
   return data.users.find((u) => u.id === token);
 }
+
+/* KODE YANG SALAH TELAH DIHAPUS DARI SINI
+  Fungsi `goToAdminDashboard` yang sebelumnya ada di sini adalah kode frontend 
+  dan tidak seharusnya berada di file server.js.
+*/
 
 // ================================================
 // ROUTES
