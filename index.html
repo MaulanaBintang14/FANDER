@@ -398,112 +398,117 @@
             </div>
         </section>
 
-        <section id="admin-view" class="hidden">
-            <!-- Kembali ke Dashboard (Admin) -->
-            <div class="mb-6">
-                <button onclick="goBackToAdminDashboard()" class="btn-outline mb-6 flex items-center gap-2 text-sm">
-                    <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
-                </button>
-            </div>
+       <section id="admin-view" class="hidden">
+  <h2 class="text-4xl font-bold text-white mb-8 pb-3 border-b-2 border-cyan-500/50 flex justify-between items-center">
+    Admin Dashboard
+    <button onclick="navigate('admin-add')" class="btn-primary text-sm shadow-md">
+      <i class="fas fa-plus-circle mr-2"></i>
+      Tambah Produk Baru
+    </button>
+  </h2>
 
-            <h2 class="text-4xl font-bold text-white mb-8 pb-3 border-b-2 border-cyan-500/50 flex justify-between items-center">
-                Admin Dashboard
-                <button onclick="navigate('admin-add')" class="btn-primary text-sm shadow-md">
-                    <i class="fas fa-plus-circle mr-2"></i>
-                    Tambah Produk Baru
-                </button>
-            </h2>
+  <div id="admin-form-container" class="section-box mb-10 hidden border-t-4 border-blue-500/50">
+    <h3 id="form-title" class="text-2xl font-semibold text-white mb-5 border-b border-gray-600 pb-2">Tambah Produk</h3>
+    <form id="admin-product-form" onsubmit="event.preventDefault(); handleAdminProductSubmit(this.elements)">
+      <input type="hidden" id="product-id" name="id" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="col-span-1">
+          <label for="product-name" class="block text-sm font-medium text-gray-300 mb-1">Nama Produk</label>
+          <input type="text" id="product-name" name="name" required class="form-input" />
+        </div>
+        <div class="col-span-1">
+          <label for="product-category" class="block text-sm font-medium text-gray-300 mb-1">Kategori</label>
+          <select id="product-category" name="category" required class="form-select">
+            <option value="Jaket">Jaket</option>
+            <option value="Tas">Tas</option>
+            <option value="Dompet">Dompet</option>
+            <option value="Sepatu">Sepatu</option>
+            <option value="Ikat Pinggang">Ikat Pinggang</option>
+            <option value="Topi">Topi</option>
+            <option value="Aksesoris">Aksesoris</option>
+          </select>
+        </div>
+        <!-- ✅ Bagian harga sudah ditambahkan validasi -->
+        <div class="col-span-1">
+          <label for="product-price" class="block text-sm font-medium text-gray-300 mb-1">Harga (IDR)</label>
+          <input
+            type="number"
+            id="product-price"
+            name="price"
+            min="10000"
+            max="10000000"
+            required
+            class="form-input"
+            placeholder="Rp 10.000 - Rp 10.000.000"
+          />
+          <small class="text-gray-400 text-xs">*Harga minimal Rp 10.000 dan maksimal Rp 10.000.000</small>
+        </div>
+        <!-- ✅ Akhir bagian harga -->
+        <div class="col-span-1">
+          <label for="product-imageurl" class="block text-sm font-medium text-gray-300 mb-1">URL Gambar</label>
+          <input type="url" id="product-imageurl" name="imageUrl" required class="form-input" />
+        </div>
+        <div class="md:col-span-2">
+          <label for="product-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi</label>
+          <textarea id="product-description" name="description" rows="4" required class="form-textarea"></textarea>
+        </div>
+      </div>
+      <div class="flex justify-end space-x-4 mt-6">
+        <button type="button" onclick="navigate('admin')" class="px-6 py-2 btn-outline hover:text-white hover:bg-gray-600">Batal</button>
+        <button type="submit" id="admin-form-submit-btn" class="btn-primary px-6 py-2">
+          <i class="fas fa-save mr-2"></i>
+          <span>Simpan Produk</span>
+        </button>
+      </div>
+    </form>
+  </div>
 
-            <div id="admin-form-container" class="section-box mb-10 hidden border-t-4 border-blue-500/50">
-                <h3 id="form-title" class="text-2xl font-semibold text-white mb-5 border-b border-gray-600 pb-2">Tambah Produk</h3>
-                <form id="admin-product-form" onsubmit="event.preventDefault(); handleAdminProductSubmit(this.elements)">
-                    <input type="hidden" id="product-id" name="id" />
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="col-span-1">
-                            <label for="product-name" class="block text-sm font-medium text-gray-300 mb-1">Nama Produk</label>
-                            <input type="text" id="product-name" name="name" required class="form-input" />
-                        </div>
-                        <div class="col-span-1">
-                            <label for="product-category" class="block text-sm font-medium text-gray-300 mb-1">Kategori</label>
-                            <select id="product-category" name="category" required class="form-select">
-                                <option value="Jaket">Jaket</option>
-                                <option value="Tas">Tas</option>
-                                <option value="Dompet">Dompet</option>
-                                <option value="Sepatu">Sepatu</option>
-                                <option value="Ikat Pinggang">Ikat Pinggang</option>
-                                <option value="Topi">Topi</option>
-                                <option value="Aksesoris">Aksesoris</option>
-                            </select>
-                        </div>
-                        <div class="col-span-1">
-                            <label for="product-price" class="block text-sm font-medium text-gray-300 mb-1">Harga (IDR)</label>
-                            <input type="number" id="product-price" name="price" required class="form-input" />
-                        </div>
-                        <div class="col-span-1">
-                            <label for="product-imageurl" class="block text-sm font-medium text-gray-300 mb-1">URL Gambar</label>
-                            <input type="url" id="product-imageurl" name="imageUrl" required class="form-input" />
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="product-description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi</label>
-                            <textarea id="product-description" name="description" rows="4" required class="form-textarea"></textarea>
-                        </div>
-                    </div>
-                    <div class="flex justify-end space-x-4 mt-6">
-                        <button type="button" onclick="navigate('admin')" class="px-6 py-2 btn-outline hover:text-white hover:bg-gray-600">Batal</button>
-                        <button type="submit" id="admin-form-submit-btn" class="btn-primary px-6 py-2">
-                            <i class="fas fa-save mr-2"></i>
-                            <span>Simpan Produk</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
+  <div class="section-box mb-10">
+    <h3 class="text-2xl font-bold text-white mb-5 border-b border-gray-600 pb-2 flex items-center gap-2">
+      <i class="fas fa-shipping-fast text-cyan-400"></i>
+      Manajemen Pesanan (COD)
+    </h3>
+    <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-inner">
+      <table class="min-w-full divide-y divide-gray-700">
+        <thead class="bg-gray-700">
+          <tr>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">ID Pesanan</th>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Produk / Harga</th>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Pembeli / HP</th>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
+            <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="admin-order-table-body" class="bg-gray-800 divide-y divide-gray-700">
+          <tr>
+            <td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Memuat pesanan...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-            <div class="section-box mb-10">
-                <h3 class="text-2xl font-bold text-white mb-5 border-b border-gray-600 pb-2 flex items-center gap-2">
-                    <i class="fas fa-shipping-fast text-cyan-400"></i>
-                    Manajemen Pesanan (COD)
-                </h3>
-                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-inner">
-                    <table class="min-w-full divide-y divide-gray-700">
-                        <thead class="bg-gray-700">
-                            <tr>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">ID Pesanan</th>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Produk / Harga</th>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Pembeli / HP</th>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
-                                <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-order-table-body" class="bg-gray-800 divide-y divide-gray-700">
-                            <tr>
-                                <td colspan="5" class="px-5 py-4 text-center text-gray-400 italic">Memuat pesanan...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <div class="section-box">
+    <h3 class="text-2xl font-bold text-white mb-5 border-b border-gray-600 pb-2 flex items-center gap-2">
+      <i class="fas fa-boxes text-cyan-400"></i>
+      Manajemen Produk
+    </h3>
+    <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-inner">
+      <table class="min-w-full divide-y divide-gray-700">
+        <thead class="bg-gray-700">
+          <tr>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Nama</th>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Harga</th>
+            <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Kategori</th>
+            <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="admin-product-table-body" class="bg-gray-800 divide-y divide-gray-700"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
-            <div class="section-box">
-                <h3 class="text-2xl font-bold text-white mb-5 border-b border-gray-600 pb-2 flex items-center gap-2">
-                    <i class="fas fa-boxes text-cyan-400"></i>
-                    Manajemen Produk
-                </h3>
-                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-inner">
-                    <table class="min-w-full divide-y divide-gray-700">
-                        <thead class="bg-gray-700">
-                            <tr>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Nama</th>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Harga</th>
-                                <th class="px-5 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Kategori</th>
-                                <th class="px-5 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-product-table-body" class="bg-gray-800 divide-y divide-gray-700"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </main>
 
     <footer class="bg-[#1e293b] text-gray-300 mt-20 border-t border-cyan-600/30">
         <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -532,11 +537,11 @@
                 <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 border-b border-gray-700 pb-1">Hubungi Kami</h3>
                 <p class="text-sm text-gray-400 mb-2">
                     <i class="fab fa-whatsapp text-green-400 mr-2"></i>
-                    WhatsApp: <span class="text-white font-medium">0812-3456-7890</span>
+                    WhatsApp: <span class="text-white font-medium">081998305354</span>
                 </p>
                 <p class="text-sm text-gray-400">
                     <i class="fas fa-envelope text-red-400 mr-2"></i>
-                    Email: <span class="text-white font-medium">cs@fanderleather.com</span>
+                    Email: <span class="text-white font-medium">fanderleather@gmail.com</span>
                 </p>
                 <div class="flex space-x-5 mt-6">
                     <a href="#" class="hover:text-cyan-400 transition text-2xl"><i class="fab fa-instagram"></i></a>
@@ -548,7 +553,7 @@
 
         <div class="border-t border-gray-700">
             <div class="max-w-7xl mx-auto px-6 py-4 text-center text-sm text-gray-500">
-                &copy; 2024 FANDER Leather. Hak Cipta Dilindungi.
+                &copy; 2025 FANDER Leather.
             </div>
         </div>
     </footer>
@@ -1291,6 +1296,55 @@
             navigate(auth.isAdmin ? 'admin' : 'home');
         });
     </script>
+    <script>
+  // Fungsi untuk menambah produk baru
+  async function tambahProduk() {
+    const namaProduk = document.getElementById("namaProduk").value.trim();
+    const kategoriProduk = document.getElementById("kategoriProduk").value.trim();
+    const hargaProduk = parseInt(document.getElementById("hargaProduk").value);
+    const urlGambar = document.getElementById("urlGambar").value.trim();
+    const deskripsiProduk = document.getElementById("deskripsiProduk").value.trim();
+
+    // ✅ Validasi harga (10.000 - 10.000.000)
+    if (isNaN(hargaProduk) || hargaProduk < 10000 || hargaProduk > 10000000) {
+      alert("❌ Harga tidak valid! Masukkan antara Rp 10.000 hingga Rp 10.000.000");
+      return;
+    }
+
+    // ✅ Validasi nama produk wajib
+    if (namaProduk === "") {
+      alert("❌ Nama produk wajib diisi!");
+      return;
+    }
+
+    // Kirim data produk ke server
+    const response = await fetch("http://localhost:3000/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: namaProduk,
+        category: kategoriProduk,
+        price: hargaProduk,
+        image: urlGambar,
+        description: deskripsiProduk
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("✅ Produk berhasil ditambahkan!");
+      // Reset form
+      document.getElementById("namaProduk").value = "";
+      document.getElementById("kategoriProduk").value = "";
+      document.getElementById("hargaProduk").value = "";
+      document.getElementById("urlGambar").value = "";
+      document.getElementById("deskripsiProduk").value = "";
+    } else {
+      alert("❌ Gagal menambahkan produk. " + (result.message || ""));
+    }
+  }
+</script>
 </body>
 
 </html>
