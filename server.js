@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -9,82 +10,65 @@ const PORT = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DATA_FILE = path.join(__dirname, "file.json");
 
 // ===== Middleware dasar =====
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname)); // supaya bisa buka index.html langsung
+app.use(express.static(__dirname));
 
 // ===== Hilangkan error Chrome DevTools CSP =====
 app.get("/.well-known/appspecific/com.chrome.devtools.json", (req, res) => {
-  res.status(204).send(); // No Content
+  res.status(204).send();
 });
 
-// ===== Data Sementara (dummy) =====
-let products = [
-  {
-    id: "1",
-    name: "Tas Selempang Pria",
-    price: 550000,
-    category: "Tas",
-    description: "Tas kulit selempang pria elegan dan fungsional.",
-    imageUrl: "https://placehold.co/400x300?text=Tas+Selempang",
-  },
-  {
-    id: "2",
-    name: "Dompet Kulit Premium",
-    price: 350000,
-    category: "Aksesoris",
-    description: "Dompet kulit sapi asli premium dengan desain minimalis.",
-    imageUrl: "https://placehold.co/400x300?text=Dompet+Kulit",
-  },
-];
+// ===== Fungsi bantu untuk baca/tulis file.json =====
+function loadData() {
+  try {
+    // Jika file.json belum ada, buat file baru
+    if (!fs.existsSync(DATA_FILE)) {
+      fs.writeFileSync(DATA_FILE, JSON.stringify({ products: [], orders: [] }, null, 2));
+    }
 
-let orders = [];
+    const raw = fs.readFileSync(DATA_FILE, "utf-8");
+    const data = JSON.parse(raw);
+
+    // Pastikan selalu ada struktur dasar
+    if (!data.products) data.products = [];
+    if (!data.orders) data.orders = [];
+
+    return data;
+  } catch (err) {
+    console.error("❌ Gagal membaca file.json. Membuat file baru...");
+    const data = { products: [], orders: [] };
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    return data;
+  }
+}
+
+function saveData(data) {
+  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+}
+
+// ===== Muat data awal dari file.json =====
+let { products, orders } = loadData();
 
 // ===== ROUTE UTAMA =====
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// ===== API AUTH =====
-app.post("/api/auth/login", (req, res) => {
-  const { username, password } = req.body;
-  if (username === "admin" && password === "admin123") {
-    return res.json({
-      token: "fake-admin-token",
-      isAdmin: true,
-      username,
-    });
-  } else {
-    return res.json({
-      token: "fake-user-token",
-      isAdmin: false,
-      username,
-    });
-  }
-});
-
-app.post("/api/auth/register", (req, res) => {
-  const { username } = req.body;
-  res.json({ message: `Akun ${username} berhasil didaftarkan!` });
-});
-
 // ===== API PRODUCTS =====
 
-// 🔹 GET Semua Produk
+// Ambil semua produk (langsung baca ulang dari file.json)
 app.get("/api/products", (req, res) => {
+  const data = loadData();
+  products = data.products;
+  orders = data.orders;
   res.json(products);
 });
 
-// 🔹 GET Produk by ID
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p.id === req.params.id);
-  if (!product) return res.status(404).json({ message: "Produk tidak ditemukan" });
-  res.json(product);
-});
-
-// 🔹 POST Tambah Produk (validasi harga 10.000 - 10.000.000)
+// Tambah produk baru
 app.post("/api/products", (req, res) => {
   const { name, price, category, description, imageUrl } = req.body;
   const numericPrice = Number(price);
@@ -113,6 +97,8 @@ app.post("/api/products", (req, res) => {
   };
 
   products.push(newProduct);
+  saveData({ products, orders });
+
   res.status(201).json({
     success: true,
     message: "Produk berhasil ditambahkan!",
@@ -120,12 +106,13 @@ app.post("/api/products", (req, res) => {
   });
 });
 
-// 🔹 PUT Edit Produk (validasi harga juga)
+// Edit produk
 app.put("/api/products/:id", (req, res) => {
   const index = products.findIndex((p) => p.id === req.params.id);
   if (index === -1) return res.status(404).json({ message: "Produk tidak ditemukan" });
 
   const updatedData = { ...req.body };
+
   if (updatedData.price !== undefined) {
     const numericPrice = Number(updatedData.price);
     if (isNaN(numericPrice) || numericPrice < 10000 || numericPrice > 10000000) {
@@ -138,6 +125,8 @@ app.put("/api/products/:id", (req, res) => {
   }
 
   products[index] = { ...products[index], ...updatedData };
+  saveData({ products, orders });
+
   res.json({
     success: true,
     message: "Produk berhasil diperbarui.",
@@ -145,17 +134,24 @@ app.put("/api/products/:id", (req, res) => {
   });
 });
 
-// 🔹 DELETE Produk
+// Hapus produk
 app.delete("/api/products/:id", (req, res) => {
   products = products.filter((p) => p.id !== req.params.id);
+  saveData({ products, orders });
   res.status(204).send();
 });
 
 // ===== API ORDERS =====
+
+// Ambil semua pesanan
 app.get("/api/orders", (req, res) => {
+  const data = loadData();
+  products = data.products;
+  orders = data.orders;
   res.json(orders);
 });
 
+// Tambah pesanan baru
 app.post("/api/orders", (req, res) => {
   const newOrder = {
     id: Date.now().toString(),
@@ -164,13 +160,16 @@ app.post("/api/orders", (req, res) => {
     createdAt: new Date(),
   };
   orders.push(newOrder);
+  saveData({ products, orders });
   res.status(201).json({ message: "Pesanan berhasil dibuat", order: newOrder });
 });
 
+// Ubah status pesanan
 app.put("/api/orders/:id/status", (req, res) => {
   const order = orders.find((o) => o.id === req.params.id);
   if (!order) return res.status(404).json({ message: "Pesanan tidak ditemukan" });
   order.status = req.body.status;
+  saveData({ products, orders });
   res.json({ message: "Status pesanan diperbarui", order });
 });
 
