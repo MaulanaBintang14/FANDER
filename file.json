@@ -75,6 +75,22 @@
       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBwxqFR7px4PvhfiZuqdwwDo3ecSHK2bIBTA&s",
       "description": "Semi kulit kualitas pilihan",
       "id": "780f9600-cd40-4962-bb7e-0a49de16f15c"
+    },
+    {
+      "id": "1763221845085",
+      "name": "Jaket Kulit ",
+      "price": 1350000,
+      "category": "Jaket",
+      "description": "bagus rapi elegan",
+      "imageUrl": "https://th.bing.com/th/id/OIP.59TN9j9w3s5iT9wGZRC2vAHaHa?w=177&h=150&c=6&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1"
+    },
+    {
+      "id": "1763221913917",
+      "name": "Dompet Kulit",
+      "price": 123000,
+      "category": "Dompet",
+      "description": "bagus rapi elegan",
+      "imageUrl": "https://th.bing.com/th/id/OIP.KCEepg-jrbPaQeBwV8jKrAHaHa?w=186&h=186&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1"
     }
   ],
   "orders": [
