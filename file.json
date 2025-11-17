@@ -117,6 +117,42 @@
       "status": "Pending",
       "createdAt": "2025-10-13T15:25:45.465Z",
       "userId": "0b2a878a-9610-46ec-b71d-bb0e560694fa"
+    },
+    {
+      "id": "1763357779832",
+      "productId": "12345",
+      "buyerName": "Budi Santoso",
+      "buyerPhone": "08123456789",
+      "buyerAddress": "Jl. Merdeka No. 10",
+      "status": "Shipped",
+      "createdAt": "2025-11-17T05:36:19.832Z"
+    },
+    {
+      "id": "1763360883784",
+      "productId": "1763221845085",
+      "buyerName": "Abintang",
+      "buyerPhone": "034567890",
+      "buyerAddress": "eesdfchvjjknkmknmnbhgcf, aafsvfd, Banten, Kode Pos 12345t",
+      "status": "Pending",
+      "createdAt": "2025-11-17T06:28:03.784Z"
+    },
+    {
+      "id": "1763360958836",
+      "productId": "1763221913917",
+      "buyerName": "njijojk",
+      "buyerPhone": "1234567",
+      "buyerAddress": "jkbvgcfxdzffxcg, jhgf bn, Banten, Kode Pos u5456789",
+      "status": "Pending",
+      "createdAt": "2025-11-17T06:29:18.836Z"
+    },
+    {
+      "id": "1763360990561",
+      "productId": "12345",
+      "buyerName": "Budi Santoso",
+      "buyerPhone": "08123456789",
+      "buyerAddress": "Jl. Merdeka No. 10",
+      "status": "Shipped",
+      "createdAt": "2025-11-17T06:29:50.561Z"
     }
   ]
 }
