@@ -153,6 +153,15 @@
       "buyerAddress": "Jl. Merdeka No. 10",
       "status": "Shipped",
       "createdAt": "2025-11-17T06:29:50.561Z"
+    },
+    {
+      "id": "1763370547479",
+      "productId": "12345",
+      "buyerName": "Budi Santoso",
+      "buyerPhone": "08123456789",
+      "buyerAddress": "Jl. Merdeka No. 10",
+      "status": "Shipped",
+      "createdAt": "2025-11-17T09:09:07.479Z"
     }
   ]
 }
