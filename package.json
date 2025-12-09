@@ -17,6 +17,7 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "cypress": "^15.7.0",
     "jest": "^30.2.0",
     "supertest": "^7.1.4"
   }
