@@ -8,7 +8,8 @@
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+
 
     <style>
         /* =============================== */
@@ -183,7 +184,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <h1 id="logo" class="logo-text text-white cursor-pointer" onclick="navigate('home')">FANDER</h1>
             <nav class="flex items-center space-x-4">
-                <button onclick="navigate('home')" class="text-gray-300 hover:text-cyan-400 transition duration-150 font-medium tracking-wide">Produk</button>
+                <button onclick="navigate('home')" aria-label="Navigasi ke halaman produk">Produk</button>
                 <button id="auth-button" onclick="handleAuthClick()" class="btn-primary text-sm shadow-lg">
                     <i class="fas fa-sign-in-alt mr-2"></i>
                     <span>Login</span>
@@ -193,7 +194,12 @@
     </header>
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
-        <div id="message-box" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-[100]">
+        <div 
+            id="message-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="message-title"
+            class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-[100]">
             <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-sm w-full transform transition-all scale-100">
                 <h3 id="message-title" class="text-2xl font-bold text-white mb-3 border-b pb-2">Pesan</h3>
                 <p id="message-body" class="text-gray-300 mb-6 leading-relaxed"></p>
@@ -558,7 +564,7 @@
         </div>
     </footer>
 
-    <script>
+    <script defer>
         // --- DATA PROVINSI INDONESIA ---
         const INDONESIAN_PROVINCES = [
             "Aceh", "Bali", "Banten", "Bengkulu", "Daerah Istimewa Yogyakarta", "DKI Jakarta",
@@ -825,7 +831,13 @@
                     card.className = 'product-card cursor-pointer';
                     card.setAttribute('onclick', `navigate('detail','${p.id}')`);
                     card.innerHTML = `
-                        <img src="${p.imageUrl || 'https://placehold.co/400x300/9ca3af/ffffff?text=No+Image'}" alt="${p.name}" class="w-full h-48 object-cover rounded-t-xl">
+                        <img 
+                            src="${p.imageUrl || 'https://placehold.co/400x300'}"
+                            alt="${p.name}"
+                            width="400"
+                            height="300"
+                            loading="lazy"
+                            class="w-full h-48 object-cover rounded-t-xl">
                         <div class="p-5">
                             <h3 class="text-xl font-semibold text-white mb-2">${p.name}</h3>
                             <p class="text-sm text-gray-400 mb-3">${p.category || ''}</p>

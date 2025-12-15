@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 const app = express();
 const PORT = 3000;
 
+// ===== Resolve path =====
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, "file.json");
@@ -17,16 +18,25 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
+// ===== Cache header (BEST PRACTICES + PERFORMANCE) =====
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "public, max-age=3600");
+  next();
+});
+
 // ===== Hilangkan error Chrome DevTools CSP =====
 app.get("/.well-known/appspecific/com.chrome.devtools.json", (req, res) => {
   res.status(204).send();
 });
 
-// ===== Fungsi bantu untuk baca/tulis file.json =====
+// ===== Fungsi bantu file.json =====
 function loadData() {
   try {
     if (!fs.existsSync(DATA_FILE)) {
-      fs.writeFileSync(DATA_FILE, JSON.stringify({ products: [], orders: [] }, null, 2));
+      fs.writeFileSync(
+        DATA_FILE,
+        JSON.stringify({ products: [], orders: [] }, null, 2)
+      );
     }
 
     const raw = fs.readFileSync(DATA_FILE, "utf-8");
@@ -48,15 +58,14 @@ function saveData(data) {
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 }
 
-// ===== Muat data awal dari file.json =====
-let { products, orders } = loadData();
-
 // ===== ROUTE UTAMA =====
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// ===== API AUTH (Login & Register) =====
+// =====================================================
+// ===================== AUTH API =======================
+// =====================================================
 app.post("/api/auth/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -77,7 +86,6 @@ app.post("/api/auth/login", (req, res) => {
     });
   }
 
-  // Login user biasa
   return res.json({
     success: true,
     username,
@@ -103,7 +111,9 @@ app.post("/api/auth/register", (req, res) => {
   });
 });
 
-// ===== API PRODUCTS =====
+// =====================================================
+// =================== PRODUCTS API =====================
+// =====================================================
 app.get("/api/products", (req, res) => {
   const data = loadData();
   res.json(data.products);
@@ -149,13 +159,14 @@ app.post("/api/products", (req, res) => {
 
 app.put("/api/products/:id", (req, res) => {
   const data = loadData();
-  const index = data.products.findIndex((p) => p.id === req.params.id);
+  const index = data.products.findIndex(p => p.id === req.params.id);
 
   if (index === -1) {
     return res.status(404).json({ message: "Produk tidak ditemukan" });
   }
 
   const updatedData = { ...req.body };
+
   if (updatedData.price !== undefined) {
     const numericPrice = Number(updatedData.price);
     if (isNaN(numericPrice) || numericPrice < 10000 || numericPrice > 10000000) {
@@ -179,12 +190,14 @@ app.put("/api/products/:id", (req, res) => {
 
 app.delete("/api/products/:id", (req, res) => {
   const data = loadData();
-  data.products = data.products.filter((p) => p.id !== req.params.id);
+  data.products = data.products.filter(p => p.id !== req.params.id);
   saveData(data);
   res.status(204).send();
 });
 
-// ===== API ORDERS =====
+// =====================================================
+// ===================== ORDERS API =====================
+// =====================================================
 app.get("/api/orders", (req, res) => {
   const data = loadData();
   res.json(data.orders);
@@ -210,7 +223,7 @@ app.post("/api/orders", (req, res) => {
 
 app.put("/api/orders/:id/status", (req, res) => {
   const data = loadData();
-  const order = data.orders.find((o) => o.id === req.params.id);
+  const order = data.orders.find(o => o.id === req.params.id);
 
   if (!order) {
     return res.status(404).json({ message: "Pesanan tidak ditemukan" });
@@ -219,7 +232,10 @@ app.put("/api/orders/:id/status", (req, res) => {
   order.status = req.body.status;
   saveData(data);
 
-  res.json({ message: "Status pesanan diperbarui", order });
+  res.json({
+    message: "Status pesanan diperbarui",
+    order,
+  });
 });
 
 // ===== Jalankan Server =====
